@@ -1,6 +1,7 @@
 export type RecipientCategory =
   | "teacher"
   | "professor"
+  | "engineering-admin"
   | "mentor"
   | "manager"
   | "colleague"

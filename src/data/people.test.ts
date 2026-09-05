@@ -6,15 +6,28 @@ import { validatePeople } from "./validate";
 
 describe("recipient configuration", () => {
   it("contains company-specific mentor templates across Aman's journey", () => {
-    expect(people).toHaveLength(6);
+    expect(people).toHaveLength(12);
     expect(new Set(people.map((person) => person.category))).toEqual(
-      new Set(["teacher", "professor", "mentor"]),
+      new Set(["teacher", "professor", "engineering-admin", "mentor"]),
     );
 
     expect(getPersonBySlug("arjun-mentor")).toBeUndefined();
     expect(getPersonBySlug("sigmoid-senior")?.stages).toEqual(["sigmoid"]);
     expect(getPersonBySlug("flipkart-senior")?.stages).toEqual(["flipkart"]);
     expect(getPersonBySlug("quillbot-senior")?.stages).toEqual(["quillbot"]);
+  });
+
+  it("keeps engineering administrators separate from professors", () => {
+    expect(getPersonBySlug("mr-chingangbam-collin-singh")).toMatchObject({
+      category: "engineering-admin",
+      relationshipLabel: "Engineering Administration",
+      stages: ["engineering"],
+    });
+    expect(getPersonBySlug("salam-monorama-devi")).toMatchObject({
+      category: "engineering-admin",
+      relationshipLabel: "Engineering Administration",
+      stages: ["engineering"],
+    });
   });
 
   it("uses Aman's verified education and career timeline", () => {

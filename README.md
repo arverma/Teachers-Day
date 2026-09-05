@@ -51,12 +51,13 @@ For example:
 }
 ```
 
-Available kinds are `school-teacher`, `engineering-professor`, `mba-faculty`, `sigmoid-senior`, `flipkart-senior`, and `quillbot-senior`. Add multiple entries with the same company kind when several seniors mentored you there. Each kind supplies CV-based journey chapters, institutions, dates, introductory copy, Then → Now, and a default note. The shared journey, occasion, author, footer, privacy defaults, and universal copy live in `src/data/site.ts`.
+Available kinds are `school-teacher`, `engineering-professor`, `engineering-admin`, `mba-faculty`, `sigmoid-senior`, `flipkart-senior`, and `quillbot-senior`. Use `engineering-admin` for people connected to your engineering journey who were not professors. Add multiple entries with the same company kind when several seniors mentored you there. Each kind supplies CV-based journey chapters, institutions, dates, introductory copy, Then → Now, and a default note. The shared journey, occasion, author, footer, privacy defaults, and universal copy live in `src/data/site.ts`.
 
-Six examples are included:
+The quick-edit area includes your current recipients and placeholders, including:
 
-- a school teacher (`meera-maam`)
+- a school teacher (`khalid-kareem-khan`)
 - an engineering professor (`dr-nagesh-ch`)
+- two engineering administrators (`mr-chingangbam-collin-singh` and `salam-monorama-devi`)
 - an MBA faculty member (`dr-kavya-sen`)
 - a senior from Sigmoid (`sigmoid-senior`)
 - a senior from Flipkart (`flipkart-senior`)

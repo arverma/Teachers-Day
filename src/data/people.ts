@@ -5,6 +5,7 @@ import { validatePeople } from "./validate";
 type MentorKind =
   | "school-teacher"
   | "engineering-professor"
+  | "engineering-admin"
   | "mba-faculty"
   | "sigmoid-senior"
   | "flipkart-senior"
@@ -24,8 +25,17 @@ interface MentorDraft {
  * from the verified timeline in Aman's CV.
  */
 const mentorDrafts: MentorDraft[] = [
-  { slug: "meera-maam", name: "Meera Ma'am", kind: "school-teacher" },
+  { slug: "khalid-kareem-khan", name: "Khalid Kareem Khan", kind: "school-teacher" },
   { slug: "dr-nagesh-ch", name: "Dr. Nagesh Ch", kind: "engineering-professor" },
+  { slug: "dr-navanath-saharia", name: "Dr. Navanath Saharia", kind: "engineering-professor" },
+  { slug: "dr-nongmeikapam-kishorjit-singh", name: "Dr. Nongmeikapam Kishorjit Singh", kind: "engineering-professor" },
+  { slug: "dr-ramesh-ch-mishra", name: "Dr. Ramesh Ch. Mishra", kind: "engineering-professor" },
+  { slug: "dr-subasit-borah", name: "Dr. Subasit Borah", kind: "engineering-professor" },
+  { slug: "dr-amarendra-kumar-das", name: "Dr. Amarendra Kumar Das", kind: "engineering-professor" },
+  { slug: "dr-amarendra-kumar-das", name: "Dr. Amarendra Kumar Das", kind: "engineering-professor" },
+  { slug: "dr-sanjib-choudhury", name: "Dr. Sanjib Choudhury", kind: "engineering-professor" },
+  { slug: "mr-chingangbam-collin-singh", name: "Mr. Chingangbam Collin Singh", kind: "engineering-admin" },
+  { slug: "salam-monorama-devi", name: "Salam Monorama Devi", kind: "engineering-admin" },
   { slug: "dr-kavya-sen", name: "Dr. Kavya Sen", kind: "mba-faculty" },
   { slug: "sigmoid-senior", name: "Senior at Sigmoid", kind: "sigmoid-senior" },
   { slug: "flipkart-senior", name: "Senior at Flipkart", kind: "flipkart-senior" },
@@ -188,6 +198,52 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
       heading: "One last thing",
       lines: ["understand(idea)", "  before", "implement(idea)"],
     },
+  },
+  "engineering-admin": {
+    category: "engineering-admin",
+    relationshipLabel: "Engineering Administration",
+    stages: ["engineering"],
+    chapters: [
+      {
+        stage: "engineering",
+        label: "Electronics & Communication Engineering",
+        period: "2015 - 2019",
+      },
+    ],
+    intro: { subtitle: "A small thank you for the support you gave me during my college years." },
+    openingThought: {
+      followUp:
+        "Not every important lesson came from a classroom. Some came from people who helped students whenever they needed support.",
+    },
+    pathsCrossed: {
+      entries: [
+        {
+          eyebrow: "Engineering",
+          title: "Support that mattered outside the classroom",
+          organization: "IIIT Senapati, Manipur",
+          period: "2015 - 2019",
+          description:
+            "These four years gave me many memories, and the people who helped things run smoothly were an important part of them.",
+        },
+      ],
+    },
+    whatStayed: {
+      title: "Support",
+      description: [
+        "College can feel confusing at times. Having someone who listens, guides, and helps with patience makes a real difference.",
+        "I still remember that support with a lot of respect and gratitude.",
+      ],
+    },
+    thenNow: {
+      enabled: true,
+      then: { title: "I was a student trying to find my way through engineering and college life." },
+      now: { title: "Today, I still remember the people who made that journey a little easier." },
+    },
+    defaultNote: [
+      "Thank you for helping me during my time at IIIT Manipur and for always treating students with patience.",
+      "Your support may have felt like part of your everyday work, but it mattered to me and I still remember it.",
+    ],
+    easterEgg: { enabled: false, type: "quote", lines: [] },
   },
   "mba-faculty": {
     category: "professor",
