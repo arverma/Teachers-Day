@@ -59,9 +59,12 @@ The quick-edit area includes your current recipients and placeholders, including
 - an engineering professor (`dr-nagesh-ch`)
 - two engineering administrators (`mr-chingangbam-collin-singh` and `salam-monorama-devi`)
 - an MBA faculty member (`dr-kavya-sen`)
-- a senior from Sigmoid (`sigmoid-senior`)
-- a senior from Flipkart (`flipkart-senior`)
-- a senior from QuillBot (`quillbot-senior`)
+- Ishan Ojha from Sigmoid (`ishaan-ojha`)
+- Karthik Nandam from Sigmoid (`karthik-nandam`)
+- Pradyot H. Adavi from Flipkart (`pradyot-h-adavi`)
+- Muhammad Rafi from QuillBot (`muhammad-rafi`)
+- Jayant Kumar from QuillBot (`jayant-kumar`)
+- Aditya Malik from QuillBot (`aditya-malik`)
 
 Dr. Nagesh Ch reflects an existing user edit. The remaining names are placeholders and must be replaced before their URLs are shared. Never add contact details or content you would not be comfortable placing on a technically public URL.
 

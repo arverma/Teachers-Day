@@ -40,9 +40,12 @@ const mentorDrafts: MentorDraft[] = [
   { slug: "mr-chingangbam-collin-singh", name: "Mr. Chingangbam Collin Singh", kind: "engineering-admin" },
   { slug: "salam-monorama-devi", name: "Salam Monorama Devi", kind: "engineering-admin" },
   { slug: "dr-kavya-sen", name: "Dr. Kavya Sen", kind: "mba-faculty" },
-  { slug: "sigmoid-senior", name: "Senior at Sigmoid", kind: "sigmoid-senior" },
-  { slug: "flipkart-senior", name: "Senior at Flipkart", kind: "flipkart-senior" },
-  { slug: "quillbot-senior", name: "Senior at QuillBot", kind: "quillbot-senior" },
+  { slug: "ishaan-ojha", name: "Ishan Ojha", kind: "sigmoid-senior" },
+  { slug: "karthik-nandam", name: "Karthik Nandam", kind: "sigmoid-senior" },
+  { slug: "pradyot-h-adavi", name: "Pradyot H. Adavi", kind: "flipkart-senior" },
+  { slug: "muhammad-rafi", name: "Muhammad Rafi", kind: "quillbot-senior" },
+  { slug: "jayant-kumar", name: "Jayant Kumar", kind: "quillbot-senior" },
+  { slug: "aditya-malik", name: "Aditya Malik", kind: "quillbot-senior" },
 ];
 
 interface MentorPreset extends Omit<PersonConfig, "slug" | "name" | "displayName" | "note"> {
@@ -55,6 +58,7 @@ interface CompanySeniorPreset {
   period: string;
   role: string;
   chapter: string;
+  memory?: string;
   lesson: string;
   stayed: string[];
   then: string;
@@ -68,6 +72,7 @@ function createCompanySeniorPreset({
   period,
   role,
   chapter,
+  memory,
   lesson,
   stayed,
   then,
@@ -84,7 +89,7 @@ function createCompanySeniorPreset({
       followUp: `I worked with you at ${company}. I still use many of the things I learned from you there.`,
     },
     pathsCrossed: {
-      entries: [{ eyebrow: period, title: chapter, organization: company }],
+      entries: [{ eyebrow: period, title: chapter, organization: company, description: memory }],
     },
     whatStayed: { title: lesson, description: stayed },
     thenNow: {
@@ -254,38 +259,38 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     relationshipLabel: "MBA Faculty",
     stages: ["mba"],
     chapters: [{ stage: "mba", label: "MBA", period: "2025 - 2027" }],
-    intro: { subtitle: "A small thank you for helping me look at problems differently." },
+    intro: { subtitle: "A small thank you for making the first immersion so memorable." },
     openingThought: {
       followUp:
-        "I met you at IIM Bodh Gaya after I had already spent years working as an engineer. You helped me look beyond only the technical side.",
+        "I still remember the interactions during the very first immersion. It was the beginning of a new kind of learning for me, and you made it feel welcoming from the start.",
     },
     pathsCrossed: {
       entries: [
         {
           eyebrow: "MBA",
-          title: "Learning to see the bigger picture",
+          title: "The first immersion, on campus and online",
           organization: "IIM Bodh Gaya",
           period: "2025 - 2027",
           description:
-            "I am doing my MBA while continuing my work in data engineering. This chapter is helping me connect technology with people and business.",
+            "I remember the games, the classroom discussions, and the conversations in the online forum. I also remember you eagerly waiting to see student faces while everyone played a little hide and seek with their cameras.",
         },
       ],
     },
     whatStayed: {
-      title: "The bigger picture",
+      title: "Showing up",
       description: [
-        "Your questions made me think beyond how something works. I started asking why I am doing it and who it will help.",
-        "I now carry that thinking into technical decisions, conversations with other teams, and the way I lead work.",
+        "There have been morning classes, late-night classes, and back-to-back exams, all while managing work pressure at the same time.",
+        "It has not always been easy, but I hope this effort will become meaningful and open better paths later in my career.",
       ],
     },
     thenNow: {
       enabled: true,
-      then: { title: "I was an engineer mostly thinking about correctness and scale." },
-      now: { title: "Now, I am also learning to think about people, strategy, and long-term value." },
+      then: { title: "I joined the first immersion curious about what this new chapter would bring." },
+      now: { title: "Now, I am learning to make space for study even when work and life are already full." },
     },
     defaultNote: [
-      "Thank you for helping me see familiar problems from a different angle.",
-      "I am already using these lessons in the way I communicate, make decisions, and work with people outside engineering.",
+      "Thank you for making the first immersion lively, warm, and worth remembering.",
+      "The games, discussions, long classes, and small online moments made the pressure easier to carry. I hope I will look back and see how much this journey shaped my career.",
     ],
     easterEgg: { enabled: false, type: "quote", lines: [] },
   },
@@ -295,16 +300,19 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     period: "2019 - 2021",
     role: "Software Engineer I",
     chapter: "Learning how real production systems work",
-    lesson: "Being practical",
+    memory:
+      "I remember the lunch walks, evening tea, lunches, and the occasional dinner. Friday evenings often meant badminton or cricket. Those simple breaks made a demanding first job feel lighter and gave me space to learn from you beyond project meetings.",
+    lesson: "Learning widely",
     stayed: [
-      "You helped me understand that writing working code is only the first step. A real system also has to be reliable and easy for others to operate.",
-      "I carried this practical way of thinking with me when I moved on to much larger data platforms.",
+      "As a fresher, I worked on several short projects. You helped me gather a breadth of knowledge in that small span of time instead of seeing each task in isolation.",
+      "That learning and mentorship still help me today when I design data systems at a much larger scale.",
     ],
-    then: "I was an engineer building my first production data pipelines.",
-    now: "Today, I still check whether a big technical idea will actually work well in production.",
+    then: "I was a fresher learning from every short project that came my way.",
+    now: "Today, those early lessons still guide me while I design some of the largest data systems I have worked on.",
     note: [
-      "Thank you for patiently sharing what you had learned from working on real systems.",
-      "The habits I picked up at Sigmoid stayed with me and helped me handle every bigger challenge that came later.",
+      "Thank you for the time, conversations, and mentorship you gave me during those early years at Sigmoid.",
+      "If I become a manager or mentor someday, I hope I can give people the same trust, patience, and support you gave me.",
+      "I hope I get the chance to work with you again, this time on larger data problems together.",
     ],
   }),
   "flipkart-senior": createCompanySeniorPreset({
@@ -312,17 +320,20 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     stage: "flipkart",
     period: "2021 - 2023",
     role: "Data Engineer II",
-    chapter: "Learning to take ownership of systems used by millions",
-    lesson: "Ownership",
+    chapter: "Building data products for BNPL and user scoring",
+    memory:
+      "I worked closely with Axis on BNPL products and built data products for scoring users at Flipkart. You gave me a free hand to own the work while still being there with support and advice whenever I needed it.",
+    lesson: "Trust with support",
     stayed: [
-      "You showed me that ownership means staying with a problem until it is properly solved, even when it involves many teams.",
-      "I carried that lesson into migrations, difficult decisions, and times when the team was going through a lot of change.",
+      "I felt independent and supported at the same time while working on these data products. That balance helped me take real ownership without ever feeling that I was on my own.",
+      "Even though I worked with you for a short time, I learned what it means to give developers a free hand while still offering mentorship and honest advice.",
     ],
-    then: "I was a data engineer taking responsibility for larger and more important systems.",
-    now: "Today, I know that being dependable is just as important as being technically strong.",
+    then: "I was learning to take independent ownership of data products used for important decisions.",
+    now: "Today, I still value the same balance of freedom, support, and responsibility in every team I work with.",
     note: [
-      "Thank you for trusting me with important problems and showing me what real ownership looks like.",
-      "I still remember that standard from Flipkart whenever I take on difficult work today.",
+      "Thank you for trusting me with the Axis BNPL work and the data products used for scoring users. Your support gave me the confidence to take ownership and solve problems independently.",
+      "The time was short, but the learning stayed with me.",
+      "If I become a manager someday, I would like to give my team the same freedom, support, mentorship, and advice that you gave me.",
     ],
   }),
   "quillbot-senior": createCompanySeniorPreset({
@@ -330,17 +341,20 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     stage: "quillbot",
     period: "2023 - Present",
     role: "Senior Data Engineer",
-    chapter: "Building large data platforms and helping other engineers grow",
-    lesson: "Making better decisions",
+    chapter: "Building large data platforms with a team I will always remember",
+    memory:
+      "I remember the offsites, the fun, long discussions, games, time sitting on the beach, lunches, dinners, and all the plans the group made. The bond felt rare, and some of the best time in my seven years in the industry was spent with this team.",
+    lesson: "People and scale",
     stayed: [
-      "You helped me think calmly when there was no perfect answer and I had to balance scale, security, cost, and people's needs.",
-      "I use that guidance when I make difficult technical decisions, write down context, or help another engineer through a problem.",
+      "I had never built platforms at this scale before. Working with you gave me the confidence that I can understand large problems and build systems that handle them well.",
+      "Your advice, career guidance, and the opportunities you gave me to learn have shaped both my work and the way I think about my career.",
     ],
-    then: "I was an experienced engineer starting to take on bigger technical decisions.",
-    now: "Today, I am learning that my work is also about helping the people around me do well.",
+    then: "I joined ready to take on bigger technical problems, without knowing how special the people around me would become.",
+    now: "Today, I carry both the platform-building experience and the memories of a team that made work feel special.",
     note: [
-      "Thank you for giving me context when the answer was not obvious and for always making room for an honest discussion.",
-      "Your guidance still helps me in the way I build, communicate, and support the engineers around me.",
+      "Thank you for the offsites, the discussions, the games, the beach time, the lunches and dinners, and all the plans that made those days so much fun.",
+      "The bond in that group was on another level. Some of the best time in my seven-year career was spent with you all, and offsites have never felt the same since.",
+      "I am also grateful for everything I learned while building platforms at a scale I had never worked with before. Your advice, career guidance, and the opportunities you gave me to learn will stay with me for a long time.",
     ],
   }),
 };

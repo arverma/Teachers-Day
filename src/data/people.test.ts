@@ -12,9 +12,12 @@ describe("recipient configuration", () => {
         "mr-chingangbam-collin-singh",
         "salam-monorama-devi",
         "dr-kavya-sen",
-        "sigmoid-senior",
-        "flipkart-senior",
-        "quillbot-senior",
+        "ishaan-ojha",
+        "karthik-nandam",
+        "pradyot-h-adavi",
+        "muhammad-rafi",
+        "jayant-kumar",
+        "aditya-malik",
       ]),
     );
     expect(new Set(people.map((person) => person.category))).toEqual(
@@ -22,9 +25,13 @@ describe("recipient configuration", () => {
     );
 
     expect(getPersonBySlug("arjun-mentor")).toBeUndefined();
-    expect(getPersonBySlug("sigmoid-senior")?.stages).toEqual(["sigmoid"]);
-    expect(getPersonBySlug("flipkart-senior")?.stages).toEqual(["flipkart"]);
-    expect(getPersonBySlug("quillbot-senior")?.stages).toEqual(["quillbot"]);
+    expect(getPersonBySlug("sigmoid-senior")).toBeUndefined();
+    expect(getPersonBySlug("ishaan-ojha")?.stages).toEqual(["sigmoid"]);
+    expect(getPersonBySlug("karthik-nandam")?.stages).toEqual(["sigmoid"]);
+    expect(getPersonBySlug("pradyot-h-adavi")?.stages).toEqual(["flipkart"]);
+    expect(getPersonBySlug("muhammad-rafi")?.stages).toEqual(["quillbot"]);
+    expect(getPersonBySlug("flipkart-senior")).toBeUndefined();
+    expect(getPersonBySlug("quillbot-senior")).toBeUndefined();
   });
 
   it("keeps engineering administrators separate from professors", () => {
@@ -94,6 +101,47 @@ describe("recipient configuration", () => {
       expect(manipurCopy).toContain("mess");
       expect(manipurCopy).toContain("water problems");
       expect(manipurCopy).not.toContain("Board of Studies");
+    }
+  });
+
+  it("uses Aman's real MBA immersion and Sigmoid memories", () => {
+    const mbaCopy = JSON.stringify(getPersonBySlug("dr-kavya-sen"));
+    expect(mbaCopy).toContain("first immersion");
+    expect(mbaCopy).toContain("hide and seek");
+    expect(mbaCopy).toContain("back-to-back exams");
+    expect(mbaCopy).toContain("work pressure");
+
+    for (const slug of ["ishaan-ojha", "karthik-nandam"]) {
+      const sigmoidCopy = JSON.stringify(getPersonBySlug(slug));
+      expect(sigmoidCopy).toContain("lunch walks");
+      expect(sigmoidCopy).toContain("evening tea");
+      expect(sigmoidCopy).toContain("badminton or cricket");
+      expect(sigmoidCopy).toContain("larger data problems");
+      expect(sigmoidCopy).toContain("manager or mentor someday");
+    }
+  });
+
+  it("uses Aman's Flipkart BNPL memories for Pradyot", () => {
+    const flipkartCopy = JSON.stringify(getPersonBySlug("pradyot-h-adavi"));
+    expect(flipkartCopy).toContain("Axis");
+    expect(flipkartCopy).toContain("BNPL");
+    expect(flipkartCopy).toContain("scoring users");
+    expect(flipkartCopy).toContain("free hand");
+    expect(flipkartCopy).toContain("manager someday");
+  });
+
+  it("uses Aman's shared QuillBot memories for each person", () => {
+    for (const slug of [
+      "muhammad-rafi",
+      "jayant-kumar",
+      "aditya-malik",
+    ]) {
+      const quillbotCopy = JSON.stringify(getPersonBySlug(slug));
+      expect(quillbotCopy).toContain("offsites");
+      expect(quillbotCopy).toContain("beach");
+      expect(quillbotCopy).toContain("seven years");
+      expect(quillbotCopy).toContain("platforms at this scale");
+      expect(quillbotCopy).toContain("career guidance");
     }
   });
 
