@@ -1,0 +1,32 @@
+---
+import type { PersonConfig } from "../data/types";
+
+interface Props { person: PersonConfig }
+const { person } = Astro.props;
+const section = person.pathsCrossed;
+---
+
+{section && section.enabled !== false && section.entries.length > 0 && (
+  <section class="paths section-shell" aria-labelledby="paths-title" data-reveal>
+    <div class="section-heading">
+      <p class="eyebrow">The chapter</p>
+      <h2 id="paths-title">{section.title ?? "Where our paths crossed"}</h2>
+    </div>
+    <div class="paths__list">
+      {section.entries.map((entry) => (
+        <article class="paths__entry">
+          {entry.eyebrow && <p class="eyebrow">{entry.eyebrow}</p>}
+          <h3>{entry.title}</h3>
+          {(entry.organization || entry.period) && (
+            <p class="paths__meta">
+              {entry.organization && <span>{entry.organization}</span>}
+              {entry.period && <time>{entry.period}</time>}
+            </p>
+          )}
+          {entry.description && <p class="paths__description">{entry.description}</p>}
+        </article>
+      ))}
+    </div>
+  </section>
+)}
+

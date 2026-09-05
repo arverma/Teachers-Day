@@ -1,0 +1,19 @@
+---
+import type { PersonConfig } from "../data/types";
+
+interface Props {
+  person: PersonConfig;
+}
+
+const { person } = Astro.props;
+---
+
+<header class="intro" aria-labelledby="recipient-name">
+  <div class="intro__content">
+    <p class="eyebrow intro__eyebrow">{person.intro.eyebrow ?? "FOR"}</p>
+    <h1 id="recipient-name">{person.displayName}</h1>
+    <p class="intro__subtitle">{person.intro.subtitle}</p>
+  </div>
+  <a class="intro__begin" href="#note-begins">Open note <span aria-hidden="true">↓</span></a>
+</header>
+

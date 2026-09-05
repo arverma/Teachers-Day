@@ -1,0 +1,19 @@
+---
+import { siteConfig } from "../data/site";
+import type { PersonConfig } from "../data/types";
+
+interface Props {
+  person: PersonConfig;
+}
+
+const { person } = Astro.props;
+const lines = person.openingThought?.lines ?? siteConfig.openingThought;
+---
+
+<section id="note-begins" class="opening section-shell" data-reveal>
+  <div class="opening__thought">
+    {lines.map((line) => <p>{line}</p>)}
+  </div>
+  {person.openingThought?.followUp && <p class="opening__follow-up">{person.openingThought.followUp}</p>}
+</section>
+
