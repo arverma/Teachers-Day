@@ -5,8 +5,18 @@ import { siteConfig } from "./site";
 import { validatePeople } from "./validate";
 
 describe("recipient configuration", () => {
-  it("contains company-specific mentor templates across Aman's journey", () => {
-    expect(people).toHaveLength(12);
+  it("contains the required mentor templates across Aman's journey", () => {
+    expect(people.map((person) => person.slug)).toEqual(
+      expect.arrayContaining([
+        "khalid-kareem-khan",
+        "mr-chingangbam-collin-singh",
+        "salam-monorama-devi",
+        "dr-kavya-sen",
+        "sigmoid-senior",
+        "flipkart-senior",
+        "quillbot-senior",
+      ]),
+    );
     expect(new Set(people.map((person) => person.category))).toEqual(
       new Set(["teacher", "professor", "engineering-admin", "mentor"]),
     );
