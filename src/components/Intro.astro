@@ -1,5 +1,6 @@
 ---
 import type { PersonConfig } from "../data/types";
+import { siteConfig } from "../data/site";
 
 interface Props {
   person: PersonConfig;
@@ -13,6 +14,23 @@ const { person } = Astro.props;
     <p class="eyebrow intro__eyebrow">{person.intro.eyebrow ?? "FOR"}</p>
     <h1 id="recipient-name">{person.displayName}</h1>
     <p class="intro__subtitle">{person.intro.subtitle}</p>
+    <a
+      class="intro__author"
+      href={siteConfig.author.linkedinUrl}
+      target="_blank"
+      rel="me noopener noreferrer"
+      aria-label={`A note from ${siteConfig.author.fullName}. Open LinkedIn profile`}
+    >
+      <img
+        src={siteConfig.author.image.src}
+        alt={siteConfig.author.image.alt}
+        width="480"
+        height="480"
+        decoding="async"
+      />
+      <span><small>A note from</small>{siteConfig.author.fullName}</span>
+      <span class="intro__author-arrow" aria-hidden="true">↗</span>
+    </a>
   </div>
   <a class="intro__begin" href="#note-begins">Open note <span aria-hidden="true">↓</span></a>
 </header>
