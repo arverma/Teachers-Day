@@ -40,10 +40,13 @@ const mentorDrafts: MentorDraft[] = [
   { slug: "mr-chingangbam-collin-singh", name: "Mr. Chingangbam Collin Singh", kind: "engineering-admin" },
   { slug: "salam-monorama-devi", name: "Salam Monorama Devi", kind: "engineering-admin" },
   { slug: "dr-kavya-sen", name: "Dr. Kavya Sen", kind: "mba-faculty" },
-  { slug: "ishaan-sigmoid", name: "Ishaan", kind: "sigmoid-senior" },
-  { slug: "karthik-sigmoid", name: "Karthik", kind: "sigmoid-senior" },
-  { slug: "flipkart-senior", name: "Senior at Flipkart", kind: "flipkart-senior" },
-  { slug: "quillbot-senior", name: "Senior at QuillBot", kind: "quillbot-senior" },
+  { slug: "ishaan-ojha", name: "Ishan Ojha", kind: "sigmoid-senior" },
+  { slug: "karthik-nandam", name: "Karthik Nandam", kind: "sigmoid-senior" },
+  { slug: "pradyot-h-adavi", name: "Pradyot H. Adavi", kind: "flipkart-senior" },
+  { slug: "rafi-quillbot", name: "Rafi", kind: "quillbot-senior" },
+  { slug: "muhammad-rafi-quillbot", name: "Muhammad Rafi", kind: "quillbot-senior" },
+  { slug: "jayant-quillbot", name: "Jayant", kind: "quillbot-senior" },
+  { slug: "aditya-malik-quillbot", name: "Aditya Malik", kind: "quillbot-senior" },
 ];
 
 interface MentorPreset extends Omit<PersonConfig, "slug" | "name" | "displayName" | "note"> {
@@ -309,6 +312,7 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     now: "Today, those early lessons still guide me while I design some of the largest data systems I have worked on.",
     note: [
       "Thank you for the time, conversations, and mentorship you gave me during those early years at Sigmoid.",
+      "If I become a manager or mentor someday, I hope I can give people the same trust, patience, and support you gave me.",
       "I hope I get the chance to work with you again, this time on larger data problems together.",
     ],
   }),
@@ -317,17 +321,20 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     stage: "flipkart",
     period: "2021 - 2023",
     role: "Data Engineer II",
-    chapter: "Learning to take ownership of systems used by millions",
-    lesson: "Ownership",
+    chapter: "Building data products for BNPL and user scoring",
+    memory:
+      "I worked closely with Axis on BNPL products and built data products for scoring users at Flipkart. You gave me a free hand to own the work while still being there with support and advice whenever I needed it.",
+    lesson: "Trust with support",
     stayed: [
-      "You showed me that ownership means staying with a problem until it is properly solved, even when it involves many teams.",
-      "I carried that lesson into migrations, difficult decisions, and times when the team was going through a lot of change.",
+      "I felt independent and supported at the same time while working on these data products. That balance helped me take real ownership without ever feeling that I was on my own.",
+      "Even though I worked with you for a short time, I learned what it means to give developers a free hand while still offering mentorship and honest advice.",
     ],
-    then: "I was a data engineer taking responsibility for larger and more important systems.",
-    now: "Today, I know that being dependable is just as important as being technically strong.",
+    then: "I was learning to take independent ownership of data products used for important decisions.",
+    now: "Today, I still value the same balance of freedom, support, and responsibility in every team I work with.",
     note: [
-      "Thank you for trusting me with important problems and showing me what real ownership looks like.",
-      "I still remember that standard from Flipkart whenever I take on difficult work today.",
+      "Thank you for trusting me with the Axis BNPL work and the data products used for scoring users. Your support gave me the confidence to take ownership and solve problems independently.",
+      "The time was short, but the learning stayed with me.",
+      "If I become a manager someday, I would like to give my team the same freedom, support, mentorship, and advice that you gave me.",
     ],
   }),
   "quillbot-senior": createCompanySeniorPreset({
@@ -335,17 +342,20 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     stage: "quillbot",
     period: "2023 - Present",
     role: "Senior Data Engineer",
-    chapter: "Building large data platforms and helping other engineers grow",
-    lesson: "Making better decisions",
+    chapter: "Building large data platforms with a team I will always remember",
+    memory:
+      "I remember the offsites, the fun, long discussions, games, time sitting on the beach, lunches, dinners, and all the plans the group made. The bond felt rare, and some of the best time in my seven years in the industry was spent with this team.",
+    lesson: "People and scale",
     stayed: [
-      "You helped me think calmly when there was no perfect answer and I had to balance scale, security, cost, and people's needs.",
-      "I use that guidance when I make difficult technical decisions, write down context, or help another engineer through a problem.",
+      "I had never built platforms at this scale before. Working with you gave me the confidence that I can understand large problems and build systems that handle them well.",
+      "Your advice, career guidance, and the opportunities you gave me to learn have shaped both my work and the way I think about my career.",
     ],
-    then: "I was an experienced engineer starting to take on bigger technical decisions.",
-    now: "Today, I am learning that my work is also about helping the people around me do well.",
+    then: "I joined ready to take on bigger technical problems, without knowing how special the people around me would become.",
+    now: "Today, I carry both the platform-building experience and the memories of a team that made work feel special.",
     note: [
-      "Thank you for giving me context when the answer was not obvious and for always making room for an honest discussion.",
-      "Your guidance still helps me in the way I build, communicate, and support the engineers around me.",
+      "Thank you for the offsites, the discussions, the games, the beach time, the lunches and dinners, and all the plans that made those days so much fun.",
+      "The bond in that group was on another level. Some of the best time in my seven-year career was spent with you all, and offsites have never felt the same since.",
+      "I am also grateful for everything I learned while building platforms at a scale I had never worked with before. Your advice, career guidance, and the opportunities you gave me to learn will stay with me for a long time.",
     ],
   }),
 };
