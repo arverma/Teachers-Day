@@ -2,7 +2,13 @@ import type { PersonConfig } from "./types";
 import { siteConfig } from "./site";
 import { validatePeople } from "./validate";
 
-type MentorKind = "school-teacher" | "engineering-professor" | "mba-faculty" | "career-mentor";
+type MentorKind =
+  | "school-teacher"
+  | "engineering-professor"
+  | "mba-faculty"
+  | "sigmoid-senior"
+  | "flipkart-senior"
+  | "quillbot-senior";
 
 interface MentorDraft {
   slug: string;
@@ -21,11 +27,73 @@ const mentorDrafts: MentorDraft[] = [
   { slug: "meera-maam", name: "Meera Ma'am", kind: "school-teacher" },
   { slug: "dr-nagesh-ch", name: "Dr. Nagesh Ch", kind: "engineering-professor" },
   { slug: "dr-kavya-sen", name: "Dr. Kavya Sen", kind: "mba-faculty" },
-  { slug: "arjun-mentor", name: "Arjun", kind: "career-mentor" },
+  { slug: "sigmoid-senior", name: "Senior at Sigmoid", kind: "sigmoid-senior" },
+  { slug: "flipkart-senior", name: "Senior at Flipkart", kind: "flipkart-senior" },
+  { slug: "quillbot-senior", name: "Senior at QuillBot", kind: "quillbot-senior" },
 ];
 
 interface MentorPreset extends Omit<PersonConfig, "slug" | "name" | "displayName" | "note"> {
   defaultNote: string[];
+}
+
+interface CompanySeniorPreset {
+  company: string;
+  stage: "sigmoid" | "flipkart" | "quillbot";
+  period: string;
+  role: string;
+  chapter: string;
+  lesson: string;
+  stayed: string[];
+  then: string;
+  now: string;
+  note: string[];
+}
+
+function createCompanySeniorPreset({
+  company,
+  stage,
+  period,
+  role,
+  chapter,
+  lesson,
+  stayed,
+  then,
+  now,
+  note,
+}: CompanySeniorPreset): MentorPreset {
+  return {
+    category: "mentor",
+    relationshipLabel: `Senior at ${company}`,
+    stages: [stage],
+    chapters: [{ stage, label: `${role} · ${company}`, period }],
+    intro: { eyebrow: "FOR", subtitle: `For someone whose guidance stayed with me beyond ${company}.` },
+    openingThought: {
+      followUp: `Our paths crossed at ${company}. What I learned from you continued into every chapter that followed.`,
+    },
+    pathsCrossed: {
+      entries: [{ eyebrow: period, title: chapter, organization: company }],
+    },
+    whatStayed: { title: lesson, description: stayed },
+    thenNow: {
+      enabled: true,
+      then: { title: then },
+      now: { title: now },
+    },
+    defaultNote: note,
+    easterEgg: {
+      enabled: true,
+      type: "git",
+      heading: "One last thing",
+      command: "git log --mentor",
+      lines: [
+        `Guidance received at ${company}.`,
+        "Judgement improved.",
+        "Lesson carried forward.",
+        "",
+        "Status: still in production.",
+      ],
+    },
+  };
 }
 
 const mentorPresets: Record<MentorKind, MentorPreset> = {
@@ -161,69 +229,60 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     ],
     easterEgg: { enabled: false, type: "quote", lines: [] },
   },
-  "career-mentor": {
-    category: "mentor",
-    relationshipLabel: "Career Mentor",
-    stages: ["sigmoid", "flipkart", "quillbot"],
-    chapters: [
-      { stage: "sigmoid", label: "Software Engineer I · Sigmoid", period: "2019 - 2021" },
-      { stage: "flipkart", label: "Data Engineer II · Flipkart", period: "2021 - 2023" },
-      { stage: "quillbot", label: "Senior Data Engineer · QuillBot", period: "2023 - Present" },
+  "sigmoid-senior": createCompanySeniorPreset({
+    company: "Sigmoid",
+    stage: "sigmoid",
+    period: "2019 - 2021",
+    role: "Software Engineer I",
+    chapter: "Learning to put data and machine-learning systems into production",
+    lesson: "Practicality",
+    stayed: [
+      "You helped me understand the distance between code that works and a system that keeps working in production.",
+      "That practical mindset became the foundation for every larger data platform I worked on afterward.",
     ],
-    intro: { eyebrow: "FOR", subtitle: "For someone who helped turn experience into judgment." },
-    openingThought: {
-      followUp:
-        "Our paths crossed somewhere between my first production data pipelines and the responsibility of designing platforms at petabyte scale.",
-    },
-    pathsCrossed: {
-      entries: [
-        {
-          eyebrow: "2019 - 2021",
-          title: "Learning to put data and machine-learning systems into production",
-          organization: "Sigmoid",
-        },
-        {
-          eyebrow: "2021 - 2023",
-          title: "Taking ownership of financial data systems serving millions",
-          organization: "Flipkart",
-        },
-        {
-          eyebrow: "2023 - Present",
-          title: "Architecting secure, petabyte-scale platforms and mentoring others",
-          organization: "QuillBot",
-        },
-      ],
-    },
-    whatStayed: {
-      title: "Ownership",
-      description: [
-        "You helped me see that seniority is less about having every answer and more about taking responsibility for finding the right one.",
-        "That lesson stayed through migrations, security work, difficult team transitions, and the responsibility of helping other engineers grow.",
-      ],
-    },
-    thenNow: {
-      enabled: true,
-      then: { title: "An engineer learning how production systems really behave." },
-      now: { title: "A senior engineer designing for scale, continuity, and the people behind the systems." },
-    },
-    defaultNote: [
-      "Thank you for sharing judgment, not just answers, and for trusting me with problems that required real ownership.",
-      "What I learned from you continues to shape how I build, lead, document, and mentor today.",
+    then: "An engineer building his first production data pipelines.",
+    now: "A senior engineer still grounding ambitious architecture in operational reality.",
+    note: [
+      "Thank you for sharing the practical judgment that only comes from building and operating real systems.",
+      "The habits I learned at Sigmoid stayed with me through every larger challenge that followed.",
     ],
-    easterEgg: {
-      enabled: true,
-      type: "git",
-      heading: "One last thing",
-      command: "git log --mentor",
-      lines: [
-        "Added ownership.",
-        "Improved engineering judgement.",
-        "Made curiosity a permanent dependency.",
-        "",
-        "Status: still in production.",
-      ],
-    },
-  },
+  }),
+  "flipkart-senior": createCompanySeniorPreset({
+    company: "Flipkart",
+    stage: "flipkart",
+    period: "2021 - 2023",
+    role: "Data Engineer II",
+    chapter: "Taking ownership of financial data systems serving millions",
+    lesson: "Ownership",
+    stayed: [
+      "You showed me that ownership means staying with a problem across technical, operational, and organizational boundaries.",
+      "That lesson carried into migrations, cross-functional decisions, and the responsibility of maintaining continuity when teams changed.",
+    ],
+    then: "A data engineer stepping into larger systems and higher-stakes decisions.",
+    now: "A senior engineer who treats continuity and accountability as part of the architecture.",
+    note: [
+      "Thank you for trusting me with consequential problems and showing me what end-to-end ownership looks like.",
+      "The standard I saw at Flipkart continues to shape how I approach difficult work today.",
+    ],
+  }),
+  "quillbot-senior": createCompanySeniorPreset({
+    company: "QuillBot",
+    stage: "quillbot",
+    period: "2023 - Present",
+    role: "Senior Data Engineer",
+    chapter: "Architecting secure, petabyte-scale platforms and helping others grow",
+    lesson: "Judgement",
+    stayed: [
+      "You helped me sharpen the judgment required to balance scale, security, cost, and the needs of the people using a system.",
+      "That guidance influences how I make architectural decisions, document context, and mentor other engineers.",
+    ],
+    then: "An experienced engineer taking on broader architectural responsibility.",
+    now: "A technical leader learning to multiply impact through systems, clarity, and people.",
+    note: [
+      "Thank you for offering context when the answer was not obvious and for making room for thoughtful technical disagreement.",
+      "Your guidance continues to influence how I build, communicate, and support the engineers around me.",
+    ],
+  }),
 };
 
 function createPerson({ slug, name, kind, note }: MentorDraft): PersonConfig {

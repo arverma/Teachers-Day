@@ -5,11 +5,16 @@ import { siteConfig } from "./site";
 import { validatePeople } from "./validate";
 
 describe("recipient configuration", () => {
-  it("contains four mentor templates across Aman's journey", () => {
-    expect(people).toHaveLength(4);
+  it("contains company-specific mentor templates across Aman's journey", () => {
+    expect(people).toHaveLength(6);
     expect(new Set(people.map((person) => person.category))).toEqual(
       new Set(["teacher", "professor", "mentor"]),
     );
+
+    expect(getPersonBySlug("arjun-mentor")).toBeUndefined();
+    expect(getPersonBySlug("sigmoid-senior")?.stages).toEqual(["sigmoid"]);
+    expect(getPersonBySlug("flipkart-senior")?.stages).toEqual(["flipkart"]);
+    expect(getPersonBySlug("quillbot-senior")?.stages).toEqual(["quillbot"]);
   });
 
   it("uses Aman's verified education and career timeline", () => {
@@ -27,11 +32,6 @@ describe("recipient configuration", () => {
       organization: "IIIT Senapati, Manipur",
       period: "2015 - 2019",
     });
-    expect(getPersonBySlug("arjun-mentor")?.chapters?.map((chapter) => chapter.stage)).toEqual([
-      "sigmoid",
-      "flipkart",
-      "quillbot",
-    ]);
     expect(getPersonBySlug("dr-kavya-sen")?.pathsCrossed?.entries[0]).toMatchObject({
       organization: "IIM Bodh Gaya",
       period: "2025 - 2027",

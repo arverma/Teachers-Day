@@ -51,16 +51,18 @@ For example:
 }
 ```
 
-Available kinds are `school-teacher`, `engineering-professor`, `mba-faculty`, and `career-mentor`. Each kind supplies CV-based journey chapters, institutions, dates, introductory copy, Then → Now, and a default note. The shared journey, occasion, author, footer, privacy defaults, and universal copy live in `src/data/site.ts`.
+Available kinds are `school-teacher`, `engineering-professor`, `mba-faculty`, `sigmoid-senior`, `flipkart-senior`, and `quillbot-senior`. Add multiple entries with the same company kind when several seniors mentored you there. Each kind supplies CV-based journey chapters, institutions, dates, introductory copy, Then → Now, and a default note. The shared journey, occasion, author, footer, privacy defaults, and universal copy live in `src/data/site.ts`.
 
-Four examples are included:
+Six examples are included:
 
 - a school teacher (`meera-maam`)
 - an engineering professor (`dr-nagesh-ch`)
 - an MBA faculty member (`dr-kavya-sen`)
-- a career mentor spanning several chapters (`arjun-mentor`)
+- a senior from Sigmoid (`sigmoid-senior`)
+- a senior from Flipkart (`flipkart-senior`)
+- a senior from QuillBot (`quillbot-senior`)
 
-Dr. Nagesh Ch reflects an existing user edit. The other three names are still fictional placeholders and must be replaced before their URLs are shared. Never add contact details or content you would not be comfortable placing on a technically public URL.
+Dr. Nagesh Ch reflects an existing user edit. The remaining names are placeholders and must be replaced before their URLs are shared. Never add contact details or content you would not be comfortable placing on a technically public URL.
 
 Advanced preset copy and optional sections remain in the same file below the quick-edit area. The data validator rejects duplicate or invalid slugs, unknown journey stages, missing core note content, and enabled easter eggs with no lines.
 
