@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import type { PersonConfig } from "../data/types";
-import { createWhatsAppShareUrl } from "./share";
+import { createShareData, createWhatsAppShareUrl } from "./share";
 
 const person = (category: PersonConfig["category"]): PersonConfig =>
   ({ category, slug: "khalid-kareem-khan" }) as PersonConfig;
@@ -24,5 +24,13 @@ describe("WhatsApp sharing", () => {
 
     expect(message).toContain("Look what Aman has built");
     expect(message).not.toContain("my student");
+  });
+
+  it("provides separate text and URL for the phone's native share sheet", () => {
+    expect(createShareData(person("teacher"))).toEqual({
+      title: "A thank-you note from Aman",
+      text: expect.stringContaining("my student Aman"),
+      url: "https://mentor.arverma.dev/thankyou/khalid-kareem-khan/",
+    });
   });
 });
