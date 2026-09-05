@@ -15,32 +15,32 @@ Build a configuration-driven Astro microsite that statically generates one priva
 
 ### Phase 1: Foundation
 
-- Task 1: Establish Astro, TypeScript, testing, and static-host configuration.
-- Task 2: Define and validate the global and per-person content model with four fictional examples.
-- Task 3: Generate the root, recipient, and 404 routes.
+- [x] Task 1: Establish Astro, TypeScript, testing, and static-host configuration.
+- [x] Task 2: Define and validate the global and per-person content model with four fictional examples.
+- [x] Task 3: Generate the root, recipient, and 404 routes.
 
 ### Checkpoint: Foundation
 
-- Unit tests pass and every configured recipient builds to a static route.
+- [x] Unit tests pass and every configured recipient builds to a static route.
 
 ### Phase 2: Experience
 
-- Task 4: Build the personalized narrative components and responsive journey.
-- Task 5: Add the editorial visual system, accessible dark mode, and reduced-motion-safe reveals.
-- Task 6: Add private metadata, favicon, and optional-section behavior.
+- [x] Task 4: Build the personalized narrative components and responsive journey.
+- [x] Task 5: Add the editorial visual system, accessible dark mode, and reduced-motion-safe reveals.
+- [x] Task 6: Add private metadata, favicon, and optional-section behavior.
 
 ### Checkpoint: Experience
 
-- All sample pages render correctly at mobile and desktop widths in both themes.
+- [x] All sample pages render correctly at mobile and desktop widths in both themes.
 
 ### Phase 3: Ship
 
-- Task 7: Add GitHub Pages deployment, CNAME, and editing/development documentation.
-- Task 8: Run tests, type checks, production build, browser QA, and final code review.
+- [x] Task 7: Add GitHub Pages deployment, CNAME, and editing/development documentation.
+- [x] Task 8: Run tests, type checks, production build, browser QA, and final code review.
 
 ### Checkpoint: Complete
 
-- All acceptance criteria in the supplied build brief are verified, with no console errors or recipient index.
+- [x] All acceptance criteria in the supplied build brief are verified, with no console errors or recipient index.
 
 ## Risks and Mitigations
 
@@ -54,4 +54,3 @@ Build a configuration-driven Astro microsite that statically generates one priva
 ## Open Questions
 
 - Replace `yourdomain.com` before publishing.
-
