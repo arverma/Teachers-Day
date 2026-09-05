@@ -82,9 +82,10 @@ describe("recipient configuration", () => {
     );
   });
 
-  it("links to Aman's supplied LinkedIn profile", () => {
+  it("links to Aman's profiles", () => {
     expect(siteConfig.author.fullName).toBe("Aman Ranjan Verma");
     expect(siteConfig.author.linkedinUrl).toBe("https://www.linkedin.com/in/ar-verma");
+    expect(siteConfig.author.portfolioUrl).toBe("https://arverma.dev/");
     expect(siteConfig.author.image.src).toBe("/images/aman-ranjan-verma.webp");
   });
 

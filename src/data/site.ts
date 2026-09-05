@@ -8,6 +8,7 @@ export const siteConfig = {
     name: "Aman",
     fullName: "Aman Ranjan Verma",
     linkedinUrl: "https://www.linkedin.com/in/ar-verma",
+    portfolioUrl: "https://arverma.dev/",
     image: {
       src: "/images/aman-ranjan-verma.webp",
       alt: "Aman Ranjan Verma",
