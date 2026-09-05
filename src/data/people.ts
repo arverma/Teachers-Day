@@ -66,9 +66,9 @@ function createCompanySeniorPreset({
     relationshipLabel: `Senior at ${company}`,
     stages: [stage],
     chapters: [{ stage, label: `${role} · ${company}`, period }],
-    intro: { eyebrow: "FOR", subtitle: `For someone whose guidance stayed with me beyond ${company}.` },
+    intro: { eyebrow: "FOR", subtitle: `A small thank you for everything I learned from you at ${company}.` },
     openingThought: {
-      followUp: `Our paths crossed at ${company}. What I learned from you continued into every chapter that followed.`,
+      followUp: `We worked together at ${company}. I still use many of the things I learned from you there.`,
     },
     pathsCrossed: {
       entries: [{ eyebrow: period, title: chapter, organization: company }],
@@ -86,11 +86,11 @@ function createCompanySeniorPreset({
       heading: "One last thing",
       command: "git log --mentor",
       lines: [
-        `Guidance received at ${company}.`,
-        "Judgement improved.",
-        "Lesson carried forward.",
+        `Asked for help at ${company}.`,
+        "Got patient guidance.",
+        "Still using it today.",
         "",
-        "Status: still in production.",
+        "Status: grateful.",
       ],
     },
   };
@@ -102,37 +102,37 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     relationshipLabel: "School Teacher",
     stages: ["school"],
     chapters: [{ stage: "school", label: "School years" }],
-    intro: { subtitle: "A small corner of the internet made to say thank you." },
+    intro: { subtitle: "I wanted to take a moment and say thank you." },
     openingThought: {
       followUp:
-        "Our paths crossed before the degrees and job titles. The confidence to keep learning began in classrooms like yours.",
+        "You knew me before all the degrees and job titles. A lot of the confidence I have today started in classrooms like yours.",
     },
     pathsCrossed: {
       entries: [
         {
           eyebrow: "School",
-          title: "The foundation years",
+          title: "Where my learning really started",
           period: "School years",
           description:
-            "The chapter that came before engineering, a gold medal, and a career spent learning how complex systems work.",
+            "This was long before engineering and my career, but the things I learned here gave me a strong start.",
         },
       ],
     },
     whatStayed: {
       title: "Curiosity",
       description: [
-        "The habit of asking one more question became part of how I learn and solve problems.",
-        "It followed me from being a school topper to IIIT Manipur, and later into a career building data systems used at enormous scale.",
+        "You made me feel that asking one more question was a good thing. That habit became a part of how I learn and solve problems.",
+        "It stayed with me through school, IIIT Manipur, and all the years I have spent working as an engineer.",
       ],
     },
     thenNow: {
       enabled: true,
-      then: { title: "A student learning to trust his questions." },
-      now: { title: "A senior data engineer who still begins by asking why." },
+      then: { title: "I was a student who was slowly learning to trust his questions." },
+      now: { title: "Today, I am a senior data engineer who still starts by asking why." },
     },
     defaultNote: [
-      "I may not remember every page we covered, but I remember the confidence that a patient teacher can place in a student.",
-      "Thank you for contributing to the foundation on which every later chapter was built.",
+      "I may not remember every chapter we studied, but I remember the confidence and patience you gave me.",
+      "Thank you for being part of my early journey. A lot of what came later was built on that foundation.",
     ],
     easterEgg: { enabled: false, type: "quote", lines: [] },
   },
@@ -147,40 +147,40 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
         period: "2015 - 2019",
       },
     ],
-    intro: { eyebrow: "FOR", subtitle: "A note for one of the people whose lessons stayed." },
+    intro: { eyebrow: "FOR", subtitle: "A small thank you for the lessons I still carry with me." },
     openingThought: {
       followUp:
-        "Our paths crossed at IIIT Manipur, while engineering was still becoming a way of thinking rather than only a degree.",
+        "We met at IIIT Manipur when I was still learning what it really means to think like an engineer.",
     },
     pathsCrossed: {
       entries: [
         {
           eyebrow: "Engineering",
-          title: "A classroom where questions were welcome",
+          title: "A classroom where I could ask questions",
           organization: "IIIT Senapati, Manipur",
           period: "2015 - 2019",
           description:
-            "Four years in Electronics and Communication Engineering, completed with a 9.13 CPI and a gold medal.",
+            "I studied Electronics and Communication Engineering here, graduated with a 9.13 CPI, and received the gold medal.",
         },
       ],
     },
     whatStayed: {
-      title: "Rigor",
+      title: "Clarity",
       description: [
-        "Engineering taught me to move past a plausible answer and look for one that can withstand careful questioning.",
-        "That standard now shapes how I design distributed systems, review technical decisions, and document work for the people who inherit it.",
+        "You taught me not to stop at an answer just because it looked right. I had to understand why it was right.",
+        "I still follow that lesson when I design systems, review someone else's work, or explain a difficult idea to my team.",
       ],
     },
     thenNow: {
       enabled: true,
-      then: { title: "An ECE student learning to make ideas precise." },
+      then: { title: "I was an ECE student trying to understand things properly." },
       now: {
-        title: "A senior data engineer—and a member of IIIT Manipur's Board of Studies—still applying that rigor.",
+        title: "Today, I build large data systems and serve on IIIT Manipur's Board of Studies. I still try to be just as clear.",
       },
     },
     defaultNote: [
-      "Thank you for expecting precision without making uncertainty feel embarrassing.",
-      "The rigor of those engineering years stayed with me through every system I built and every difficult problem I learned to explain clearly.",
+      "Thank you for pushing me to understand things properly while still making it comfortable to ask questions.",
+      "At that time, I may not have realised how useful this would be. I see it now in the way I work and in the way I help other engineers.",
     ],
     easterEgg: {
       enabled: true,
@@ -194,38 +194,38 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     relationshipLabel: "MBA Faculty",
     stages: ["mba"],
     chapters: [{ stage: "mba", label: "MBA", period: "2025 - 2027" }],
-    intro: { subtitle: "Something thoughtful, for someone who changed how I frame a problem." },
+    intro: { subtitle: "A small thank you for helping me look at problems differently." },
     openingThought: {
       followUp:
-        "Our paths crossed at IIM Bodh Gaya, after engineering and years of building data platforms had already shaped how I saw problems.",
+        "We met at IIM Bodh Gaya after I had already spent years working as an engineer. You helped me look beyond only the technical side.",
     },
     pathsCrossed: {
       entries: [
         {
           eyebrow: "MBA",
-          title: "A wider view of decisions and their consequences",
+          title: "Learning to see the bigger picture",
           organization: "IIM Bodh Gaya",
           period: "2025 - 2027",
           description:
-            "An MBA chapter alongside a career in data engineering, connecting technical choices with people, strategy, and business outcomes.",
+            "I am doing my MBA while continuing my work in data engineering. This chapter is helping me connect technology with people and business.",
         },
       ],
     },
     whatStayed: {
-      title: "Perspective",
+      title: "The bigger picture",
       description: [
-        "The questions you asked widened the frame—from how a system works to why it should exist and whom it should serve.",
-        "That perspective now accompanies the technical judgment, stakeholder communication, and ownership my work demands.",
+        "Your questions made me think beyond how something works. I started asking why we are doing it and who it will help.",
+        "I now carry that thinking into technical decisions, conversations with other teams, and the way I lead work.",
       ],
     },
     thenNow: {
       enabled: true,
-      then: { title: "An engineer used to solving for correctness and scale." },
-      now: { title: "A leader learning to solve for people, strategy, and lasting value too." },
+      then: { title: "I was an engineer mostly thinking about correctness and scale." },
+      now: { title: "Now, I am also learning to think about people, strategy, and long-term value." },
     },
     defaultNote: [
-      "Thank you for helping me see familiar problems from unfamiliar angles.",
-      "The lessons from this chapter are already changing how I communicate decisions, work with stakeholders, and think beyond the implementation.",
+      "Thank you for helping me see familiar problems from a different angle.",
+      "I am already using these lessons in the way I communicate, make decisions, and work with people outside engineering.",
     ],
     easterEgg: { enabled: false, type: "quote", lines: [] },
   },
@@ -234,17 +234,17 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     stage: "sigmoid",
     period: "2019 - 2021",
     role: "Software Engineer I",
-    chapter: "Learning to put data and machine-learning systems into production",
-    lesson: "Practicality",
+    chapter: "Learning how real production systems work",
+    lesson: "Being practical",
     stayed: [
-      "You helped me understand the distance between code that works and a system that keeps working in production.",
-      "That practical mindset became the foundation for every larger data platform I worked on afterward.",
+      "You helped me understand that writing working code is only the first step. A real system also has to be reliable and easy for others to operate.",
+      "I carried this practical way of thinking with me when I moved on to much larger data platforms.",
     ],
-    then: "An engineer building his first production data pipelines.",
-    now: "A senior engineer still grounding ambitious architecture in operational reality.",
+    then: "I was an engineer building my first production data pipelines.",
+    now: "Today, I still check whether a big technical idea will actually work well in production.",
     note: [
-      "Thank you for sharing the practical judgment that only comes from building and operating real systems.",
-      "The habits I learned at Sigmoid stayed with me through every larger challenge that followed.",
+      "Thank you for patiently sharing what you had learned from working on real systems.",
+      "The habits I picked up at Sigmoid stayed with me and helped me handle every bigger challenge that came later.",
     ],
   }),
   "flipkart-senior": createCompanySeniorPreset({
@@ -252,17 +252,17 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     stage: "flipkart",
     period: "2021 - 2023",
     role: "Data Engineer II",
-    chapter: "Taking ownership of financial data systems serving millions",
+    chapter: "Learning to take ownership of systems used by millions",
     lesson: "Ownership",
     stayed: [
-      "You showed me that ownership means staying with a problem across technical, operational, and organizational boundaries.",
-      "That lesson carried into migrations, cross-functional decisions, and the responsibility of maintaining continuity when teams changed.",
+      "You showed me that ownership means staying with a problem until it is properly solved, even when it involves many teams.",
+      "I carried that lesson into migrations, difficult decisions, and times when the team was going through a lot of change.",
     ],
-    then: "A data engineer stepping into larger systems and higher-stakes decisions.",
-    now: "A senior engineer who treats continuity and accountability as part of the architecture.",
+    then: "I was a data engineer taking responsibility for larger and more important systems.",
+    now: "Today, I know that being dependable is just as important as being technically strong.",
     note: [
-      "Thank you for trusting me with consequential problems and showing me what end-to-end ownership looks like.",
-      "The standard I saw at Flipkart continues to shape how I approach difficult work today.",
+      "Thank you for trusting me with important problems and showing me what real ownership looks like.",
+      "I still remember that standard from Flipkart whenever I take on difficult work today.",
     ],
   }),
   "quillbot-senior": createCompanySeniorPreset({
@@ -270,17 +270,17 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     stage: "quillbot",
     period: "2023 - Present",
     role: "Senior Data Engineer",
-    chapter: "Architecting secure, petabyte-scale platforms and helping others grow",
-    lesson: "Judgement",
+    chapter: "Building large data platforms and helping other engineers grow",
+    lesson: "Making better decisions",
     stayed: [
-      "You helped me sharpen the judgment required to balance scale, security, cost, and the needs of the people using a system.",
-      "That guidance influences how I make architectural decisions, document context, and mentor other engineers.",
+      "You helped me think calmly when there was no perfect answer and I had to balance scale, security, cost, and people's needs.",
+      "I use that guidance when I make difficult technical decisions, write down context, or help another engineer through a problem.",
     ],
-    then: "An experienced engineer taking on broader architectural responsibility.",
-    now: "A technical leader learning to multiply impact through systems, clarity, and people.",
+    then: "I was an experienced engineer starting to take on bigger technical decisions.",
+    now: "Today, I am learning that my work is also about helping the people around me do well.",
     note: [
-      "Thank you for offering context when the answer was not obvious and for making room for thoughtful technical disagreement.",
-      "Your guidance continues to influence how I build, communicate, and support the engineers around me.",
+      "Thank you for giving me context when the answer was not obvious and for always making room for an honest discussion.",
+      "Your guidance still helps me in the way I build, communicate, and support the engineers around me.",
     ],
   }),
 };
