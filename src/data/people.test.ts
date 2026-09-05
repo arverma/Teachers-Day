@@ -59,11 +59,34 @@ describe("recipient configuration", () => {
       organization: "IIM Bodh Gaya",
       period: "2025 - 2027",
     });
+    expect(getPersonBySlug("khalid-kareem-khan")?.pathsCrossed?.entries[0]).toMatchObject({
+      organization: "MS Memorial Academy",
+    });
+
+    expect(siteConfig.journey).toEqual(
+      expect.arrayContaining([
+        { id: "school", label: "MS Memorial Academy" },
+        { id: "engineering", label: "IIIT Manipur", href: "https://www.iiitmanipur.ac.in/" },
+        { id: "sigmoid", label: "Sigmoid", href: "https://www.sigmoid.com/" },
+        { id: "flipkart", label: "Flipkart", href: "https://www.flipkart.com/" },
+        { id: "quillbot", label: "QuillBot", href: "https://quillbot.com/" },
+        { id: "mba", label: "IIM Bodh Gaya", href: "https://iimbg.ac.in/" },
+      ]),
+    );
   });
 
-  it("links to Aman's supplied LinkedIn profile", () => {
+  it("keeps Aman's message in a clear first-person voice", () => {
+    expect(JSON.stringify(people)).not.toMatch(/\bwe\b/i);
+    expect(getPersonBySlug("khalid-kareem-khan")?.thenNow?.then.title).toBe(
+      "I was a student who was slowly becoming more comfortable asking questions.",
+    );
+  });
+
+  it("links to Aman's profiles", () => {
     expect(siteConfig.author.fullName).toBe("Aman Ranjan Verma");
     expect(siteConfig.author.linkedinUrl).toBe("https://www.linkedin.com/in/ar-verma");
+    expect(siteConfig.author.portfolioUrl).toBe("https://arverma.dev/");
+    expect(siteConfig.author.image.src).toBe("/images/aman-ranjan-verma.webp");
   });
 
   it("accepts the shipped recipient data", () => {

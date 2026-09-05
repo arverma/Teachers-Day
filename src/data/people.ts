@@ -81,7 +81,7 @@ function createCompanySeniorPreset({
     chapters: [{ stage, label: `${role} · ${company}`, period }],
     intro: { eyebrow: "FOR", subtitle: `A small thank you for everything I learned from you at ${company}.` },
     openingThought: {
-      followUp: `We worked together at ${company}. I still use many of the things I learned from you there.`,
+      followUp: `I worked with you at ${company}. I still use many of the things I learned from you there.`,
     },
     pathsCrossed: {
       entries: [{ eyebrow: period, title: chapter, organization: company }],
@@ -125,6 +125,7 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
         {
           eyebrow: "School",
           title: "Where my learning really started",
+          organization: "MS Memorial Academy",
           period: "School years",
           description:
             "This was long before engineering and my career, but the things I learned here gave me a strong start.",
@@ -140,11 +141,11 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     },
     thenNow: {
       enabled: true,
-      then: { title: "I was a student who was slowly learning to trust his questions." },
+      then: { title: "I was a student who was slowly becoming more comfortable asking questions." },
       now: { title: "Today, I am a senior data engineer who still starts by asking why." },
     },
     defaultNote: [
-      "I may not remember every chapter we studied, but I remember the confidence and patience you gave me.",
+      "I may not remember every chapter you taught me, but I remember the confidence and patience you gave me.",
       "Thank you for being part of my early journey. A lot of what came later was built on that foundation.",
     ],
     easterEgg: { enabled: false, type: "quote", lines: [] },
@@ -163,7 +164,7 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     intro: { eyebrow: "FOR", subtitle: "A small thank you for the lessons I still carry with me." },
     openingThought: {
       followUp:
-        "We met at IIIT Manipur when I was still learning what it really means to think like an engineer.",
+        "I met you at IIIT Manipur when I was still learning what it really means to think like an engineer.",
     },
     pathsCrossed: {
       entries: [
@@ -256,7 +257,7 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     intro: { subtitle: "A small thank you for helping me look at problems differently." },
     openingThought: {
       followUp:
-        "We met at IIM Bodh Gaya after I had already spent years working as an engineer. You helped me look beyond only the technical side.",
+        "I met you at IIM Bodh Gaya after I had already spent years working as an engineer. You helped me look beyond only the technical side.",
     },
     pathsCrossed: {
       entries: [
@@ -273,7 +274,7 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     whatStayed: {
       title: "The bigger picture",
       description: [
-        "Your questions made me think beyond how something works. I started asking why we are doing it and who it will help.",
+        "Your questions made me think beyond how something works. I started asking why I am doing it and who it will help.",
         "I now carry that thinking into technical decisions, conversations with other teams, and the way I lead work.",
       ],
     },

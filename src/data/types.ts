@@ -10,6 +10,7 @@ export type RecipientCategory =
 export interface JourneyStage {
   id: string;
   label: string;
+  href?: string;
 }
 
 export interface JourneyChapter {

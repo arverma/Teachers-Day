@@ -100,6 +100,35 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   line-height: 1.6;
 }
 
+.intro__author {
+  display: flex;
+  width: max-content;
+  max-width: 100%;
+  margin-top: 2rem;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.intro__author img {
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper-raised);
+  object-fit: cover;
+}
+.intro__author > span:not(.intro__author-arrow) { display: grid; gap: 0.18rem; font-size: 0.9rem; }
+.intro__author small {
+  color: var(--muted);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.intro__author-arrow { color: var(--accent); transition: transform 160ms ease; }
+.intro__author:hover .intro__author-arrow { transform: translate(0.15rem, -0.15rem); }
+
 .intro__begin {
   width: max-content;
   padding: 0.5rem 0;
@@ -194,7 +223,8 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 }
 .journey__stage--today .journey__marker { border: 2px double var(--ink); }
 .journey__stage--active .journey__label, .journey__stage--today .journey__label { color: var(--ink); }
-.journey__label { font-size: 0.95rem; font-weight: 600; }
+.journey__label { width: max-content; max-width: calc(100% - 0.5rem); font-size: 0.95rem; font-weight: 600; text-underline-offset: 0.2em; }
+.journey__external { margin-left: 0.2rem; color: var(--accent); font-size: 0.7em; }
 .journey__caption {
   color: var(--accent);
   font-family: "SFMono-Regular", Consolas, monospace;

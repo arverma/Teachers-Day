@@ -31,7 +31,13 @@ const firstActiveIndex = siteConfig.journey.findIndex((stage) => activeStages.ha
           ]}
         >
           <span class="journey__marker" aria-hidden="true"></span>
-          <span class="journey__label">{stage.label}</span>
+          {stage.href ? (
+            <a class="journey__label" href={stage.href} target="_blank" rel="noopener noreferrer">
+              {stage.label}<span class="journey__external" aria-hidden="true">↗</span>
+            </a>
+          ) : (
+            <span class="journey__label">{stage.label}</span>
+          )}
           {isActive && <span class="journey__caption">You were here</span>}
           {isToday && <span class="journey__caption">Now</span>}
         </li>
