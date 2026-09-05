@@ -43,10 +43,9 @@ const mentorDrafts: MentorDraft[] = [
   { slug: "ishaan-ojha", name: "Ishan Ojha", kind: "sigmoid-senior" },
   { slug: "karthik-nandam", name: "Karthik Nandam", kind: "sigmoid-senior" },
   { slug: "pradyot-h-adavi", name: "Pradyot H. Adavi", kind: "flipkart-senior" },
-  { slug: "rafi-quillbot", name: "Rafi", kind: "quillbot-senior" },
-  { slug: "muhammad-rafi-quillbot", name: "Muhammad Rafi", kind: "quillbot-senior" },
-  { slug: "jayant-quillbot", name: "Jayant", kind: "quillbot-senior" },
-  { slug: "aditya-malik-quillbot", name: "Aditya Malik", kind: "quillbot-senior" },
+  { slug: "muhammad-rafi", name: "Muhammad Rafi", kind: "quillbot-senior" },
+  { slug: "jayant-kumar", name: "Jayant Kumar", kind: "quillbot-senior" },
+  { slug: "aditya-malik", name: "Aditya Malik", kind: "quillbot-senior" },
 ];
 
 interface MentorPreset extends Omit<PersonConfig, "slug" | "name" | "displayName" | "note"> {
