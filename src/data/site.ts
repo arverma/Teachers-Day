@@ -37,4 +37,3 @@ export const siteConfig = {
     { id: "today", label: "Today" },
   ] satisfies JourneyStage[],
 } as const;
-

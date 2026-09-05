@@ -70,4 +70,3 @@ export interface PersonConfig {
     lines: string[];
   };
 }
-
