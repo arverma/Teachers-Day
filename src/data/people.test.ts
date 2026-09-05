@@ -28,4 +28,11 @@ describe("recipient configuration", () => {
       /unknown stage/i,
     );
   });
+
+  it("requires at least one stage or chapter", () => {
+    const unplacedPerson = { ...people[0], stages: [], chapters: [] };
+    expect(() => validatePeople([unplacedPerson], siteConfig.journey)).toThrow(
+      /journey stage/i,
+    );
+  });
 });

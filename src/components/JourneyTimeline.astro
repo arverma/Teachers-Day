@@ -18,7 +18,7 @@ const firstActiveIndex = siteConfig.journey.findIndex((stage) => activeStages.ha
     <h2 id="journey-title">Where you entered the story</h2>
   </div>
 
-  <ol class="journey__track" aria-label="Aman's learning and professional journey">
+  <ol class="journey__track" aria-label={`${siteConfig.author.name}'s learning and professional journey`}>
     {siteConfig.journey.map((stage, index) => {
       const isActive = activeStages.has(stage.id);
       const isToday = stage.id === "today";
@@ -50,4 +50,3 @@ const firstActiveIndex = siteConfig.journey.findIndex((stage) => activeStages.ha
     </div>
   )}
 </section>
-

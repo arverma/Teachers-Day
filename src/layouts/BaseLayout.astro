@@ -28,7 +28,7 @@ const canonicalUrl = new URL(canonicalPath, siteConfig.siteUrl);
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
-    <meta name="theme-color" content={siteConfig.metadata.themeColorLight} />
+    <meta id="theme-color" name="theme-color" content={siteConfig.metadata.themeColorLight} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -38,8 +38,11 @@ const canonicalUrl = new URL(canonicalPath, siteConfig.siteUrl);
     <title>{title}</title>
     <script is:inline>
       (() => {
-        const saved = localStorage.getItem("still-with-me-theme");
-        if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+        document.documentElement.classList.add("has-js");
+        try {
+          const saved = localStorage.getItem("still-with-me-theme");
+          if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+        } catch {}
       })();
     </script>
   </head>
@@ -51,6 +54,7 @@ const canonicalUrl = new URL(canonicalPath, siteConfig.siteUrl);
     <script>
       const root = document.documentElement;
       const button = document.querySelector<HTMLButtonElement>(".theme-toggle");
+      const themeMeta = document.querySelector<HTMLMetaElement>("#theme-color");
       const media = window.matchMedia("(prefers-color-scheme: dark)");
 
       const activeTheme = () => root.dataset.theme ?? (media.matches ? "dark" : "light");
@@ -59,18 +63,22 @@ const canonicalUrl = new URL(canonicalPath, siteConfig.siteUrl);
         const isDark = activeTheme() === "dark";
         button.setAttribute("aria-pressed", String(isDark));
         button.setAttribute("aria-label", `Use ${isDark ? "light" : "dark"} theme`);
+        themeMeta?.setAttribute("content", isDark ? "#171816" : "#f4f1ea");
       };
 
       button?.addEventListener("click", () => {
         const next = activeTheme() === "dark" ? "light" : "dark";
         root.dataset.theme = next;
-        localStorage.setItem("still-with-me-theme", next);
+        try { localStorage.setItem("still-with-me-theme", next); } catch {}
         updateButton();
       });
       media.addEventListener("change", updateButton);
       updateButton();
 
-      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (
+        "IntersectionObserver" in window &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
@@ -83,8 +91,9 @@ const canonicalUrl = new URL(canonicalPath, siteConfig.siteUrl);
           { rootMargin: "0px 0px -12%", threshold: 0.08 },
         );
         document.querySelectorAll("[data-reveal]").forEach((element) => observer.observe(element));
+      } else {
+        document.querySelectorAll("[data-reveal]").forEach((element) => element.classList.add("is-visible"));
       }
     </script>
   </body>
 </html>
-

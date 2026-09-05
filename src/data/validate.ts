@@ -20,6 +20,9 @@ export function validatePeople(
       ...person.stages,
       ...(person.chapters?.map((chapter) => chapter.stage) ?? []),
     ];
+    if (referencedStages.length === 0) {
+      throw new Error(`Missing journey stage for ${person.slug}`);
+    }
     for (const stage of referencedStages) {
       if (!stageIds.has(stage)) {
         throw new Error(`Unknown stage "${stage}" for ${person.slug}`);
@@ -40,4 +43,3 @@ export function validatePeople(
     }
   }
 }
-
