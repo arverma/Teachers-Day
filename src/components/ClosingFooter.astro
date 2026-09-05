@@ -1,5 +1,14 @@
 ---
 import { siteConfig } from "../data/site";
+import type { PersonConfig } from "../data/types";
+import { createWhatsAppShareUrl } from "../lib/share";
+
+interface Props {
+  person: PersonConfig;
+}
+
+const { person } = Astro.props;
+const whatsappShareUrl = createWhatsAppShareUrl(person);
 ---
 
 <section class="closing section-shell" data-reveal>
@@ -7,6 +16,16 @@ import { siteConfig } from "../data/site";
     {siteConfig.closing.map((line) => <p>{line}</p>)}
   </div>
   <p class="closing__occasion">{siteConfig.occasion}</p>
+  <a
+    id="share-on-whatsapp"
+    class="closing__share"
+    href={whatsappShareUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Share this thank-you note on WhatsApp"
+  >
+    Share on WhatsApp <span aria-hidden="true">↗</span>
+  </a>
 </section>
 
 <footer class="site-footer section-shell">

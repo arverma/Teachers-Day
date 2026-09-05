@@ -287,6 +287,29 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .closing__thought p { max-width: 18ch; margin: 0.15em 0; }
 .closing__thought p:last-child { color: var(--accent); }
 .closing__occasion { margin: 4rem 0 0; color: var(--muted); font: 400 1.1rem/1.5 Georgia, serif; }
+.closing__share {
+  display: inline-flex;
+  width: max-content;
+  margin-top: 1.5rem;
+  padding: 0.7rem 1rem;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  color: var(--ink);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+}
+.closing__share span { color: var(--accent); }
+.closing__share:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  color: var(--accent);
+}
 
 .site-footer {
   display: grid;
