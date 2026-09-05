@@ -33,33 +33,39 @@ The static site is written to `dist/`. No server, database, API, analytics, or r
 ## Adding a person
 
 1. Open `src/data/people.ts`.
-2. Copy one existing entry.
-3. Give it a unique lowercase, hyphenated `slug`.
-4. Change the name, relationship, and stage or stages.
-5. Write the `whatStayed` text and personal `note`.
-6. Add timeline `chapters`, Then → Now, or an easter egg if they fit the story.
-7. Run `pnpm build:cloudflare`.
-8. Commit and push. Cloudflare deploys `main` to production and other branches as previews.
+2. Find the `QUICK EDIT AREA` at the top of the file.
+3. Copy one mentor entry and choose the closest `kind`.
+4. Give it a unique lowercase, hyphenated `slug` and enter the person's `name`.
+5. Optionally add a `note` array when you want to replace the prefilled note.
+6. Run `pnpm build:cloudflare`.
+7. Commit and push. Cloudflare deploys `main` to production and other branches as previews.
 
-All meaningful recipient copy lives in that one data file. The shared journey, occasion, author, footer, privacy defaults, and universal copy live in `src/data/site.ts`.
+For example:
 
-Four fictional examples are included:
+```ts
+{
+  slug: "person-name",
+  name: "Person Name",
+  kind: "engineering-professor",
+  note: ["One personal memory.", "A short thank-you."],
+}
+```
 
-- a school teacher (`meera-maam`)
-- an engineering professor (`professor-iyer`)
+Available kinds are `school-teacher`, `engineering-professor`, `engineering-admin`, `mba-faculty`, `sigmoid-senior`, `flipkart-senior`, and `quillbot-senior`. Use `engineering-admin` for people connected to your engineering journey who were not professors. Add multiple entries with the same company kind when several seniors mentored you there. Each kind supplies CV-based journey chapters, institutions, dates, introductory copy, Then → Now, and a default note. The shared journey, occasion, author, footer, privacy defaults, and universal copy live in `src/data/site.ts`.
+
+The quick-edit area includes your current recipients and placeholders, including:
+
+- a school teacher (`khalid-kareem-khan`)
+- an engineering professor (`dr-nagesh-ch`)
+- two engineering administrators (`mr-chingangbam-collin-singh` and `salam-monorama-devi`)
 - an MBA faculty member (`dr-kavya-sen`)
-- a career mentor spanning several chapters (`arjun-mentor`)
+- a senior from Sigmoid (`sigmoid-senior`)
+- a senior from Flipkart (`flipkart-senior`)
+- a senior from QuillBot (`quillbot-senior`)
 
-Remove or rewrite the examples before publishing. Never add contact details or content you would not be comfortable placing on a technically public URL.
+Dr. Nagesh Ch reflects an existing user edit. The remaining names are placeholders and must be replaced before their URLs are shared. Never add contact details or content you would not be comfortable placing on a technically public URL.
 
-### Optional sections
-
-- Omit `pathsCrossed` to hide it.
-- Set `thenNow.enabled` to `false` or omit `thenNow` to hide it.
-- Set `easterEgg.enabled` to `false` or omit `easterEgg` to hide it.
-- Omit an individual optional field such as `period`, `organization`, or `description` without leaving empty layout space.
-
-The data validator rejects duplicate/invalid slugs, unknown journey stages, missing core note content, and enabled easter eggs with no lines.
+Advanced preset copy and optional sections remain in the same file below the quick-edit area. The data validator rejects duplicate or invalid slugs, unknown journey stages, missing core note content, and enabled easter eggs with no lines.
 
 ## Deploying to Cloudflare Pages
 
