@@ -1,0 +1,18 @@
+---
+import type { PersonConfig } from "../data/types";
+
+interface Props { person: PersonConfig }
+const { person } = Astro.props;
+const egg = person.easterEgg;
+const prefix = egg?.type === "git" ? "> " : "";
+---
+
+{egg?.enabled && egg.lines.length > 0 && (
+  <section class="easter-egg section-shell" aria-labelledby="easter-egg-title" data-reveal>
+    <p class="eyebrow" id="easter-egg-title">{egg.heading ?? "One last thing"}</p>
+    <div class:list={["easter-egg__window", `easter-egg__window--${egg.type}`]}>
+      <div class="easter-egg__bar" aria-hidden="true"><span></span><span></span><span></span></div>
+      <pre><code>{egg.command && `${prefix}${egg.command}\n\n`}{egg.lines.join("\n")}</code></pre>
+    </div>
+  </section>
+)}

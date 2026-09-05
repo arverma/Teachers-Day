@@ -1,0 +1,20 @@
+---
+import { siteConfig } from "../data/site";
+import type { PersonConfig } from "../data/types";
+
+interface Props { person: PersonConfig }
+const { person } = Astro.props;
+---
+
+<section class="personal-note section-shell" aria-labelledby="personal-note-title" data-reveal>
+  <p class="eyebrow">Personal note</p>
+  <h2 id="personal-note-title">A note for you</h2>
+  <div class="personal-note__letter">
+    <p>{person.note.salutation}</p>
+    {person.note.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+    <footer>
+      <p>{person.note.closing ?? siteConfig.occasion}</p>
+      <p>— {person.note.signature ?? siteConfig.author.name}</p>
+    </footer>
+  </div>
+</section>

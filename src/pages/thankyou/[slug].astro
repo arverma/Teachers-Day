@@ -1,0 +1,40 @@
+---
+import type { GetStaticPaths } from "astro";
+
+import Intro from "../../components/Intro.astro";
+import OpeningThought from "../../components/OpeningThought.astro";
+import JourneyTimeline from "../../components/JourneyTimeline.astro";
+import PathsCrossed from "../../components/PathsCrossed.astro";
+import WhatStayed from "../../components/WhatStayed.astro";
+import ThenNow from "../../components/ThenNow.astro";
+import PersonalNote from "../../components/PersonalNote.astro";
+import EasterEgg from "../../components/EasterEgg.astro";
+import ClosingFooter from "../../components/ClosingFooter.astro";
+import { people } from "../../data/people";
+import { siteConfig } from "../../data/site";
+import type { PersonConfig } from "../../data/types";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export const getStaticPaths = (() =>
+  people.map((person) => ({
+    params: { slug: person.slug },
+    props: { person },
+  }))) satisfies GetStaticPaths;
+
+const { person } = Astro.props as { person: PersonConfig };
+const pageTitle = `A note for ${person.displayName} — ${siteConfig.title}`;
+---
+
+<BaseLayout title={pageTitle} canonicalPath={`/thankyou/${person.slug}/`} pageClass="recipient-page">
+  <main>
+    <Intro person={person} />
+    <OpeningThought person={person} />
+    <JourneyTimeline person={person} />
+    <PathsCrossed person={person} />
+    <WhatStayed person={person} />
+    <ThenNow person={person} />
+    <PersonalNote person={person} />
+    <EasterEgg person={person} />
+    <ClosingFooter />
+  </main>
+</BaseLayout>

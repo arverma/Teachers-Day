@@ -1,0 +1,52 @@
+---
+import { siteConfig } from "../data/site";
+import type { PersonConfig } from "../data/types";
+
+interface Props { person: PersonConfig }
+
+const { person } = Astro.props;
+const activeStages = new Set([
+  ...person.stages,
+  ...(person.chapters?.map((chapter) => chapter.stage) ?? []),
+]);
+const firstActiveIndex = siteConfig.journey.findIndex((stage) => activeStages.has(stage.id));
+---
+
+<section class="journey section-shell" aria-labelledby="journey-title" data-reveal>
+  <div class="section-heading">
+    <p class="eyebrow">The thread</p>
+    <h2 id="journey-title">Where you entered the story</h2>
+  </div>
+
+  <ol class="journey__track" aria-label={`${siteConfig.author.name}'s learning and professional journey`}>
+    {siteConfig.journey.map((stage, index) => {
+      const isActive = activeStages.has(stage.id);
+      const isToday = stage.id === "today";
+      const isTravelled = firstActiveIndex >= 0 && index >= firstActiveIndex;
+      return (
+        <li
+          class:list={[
+            "journey__stage",
+            { "journey__stage--active": isActive, "journey__stage--today": isToday, "journey__stage--travelled": isTravelled },
+          ]}
+        >
+          <span class="journey__marker" aria-hidden="true"></span>
+          <span class="journey__label">{stage.label}</span>
+          {isActive && <span class="journey__caption">You were here</span>}
+          {isToday && <span class="journey__caption">Now</span>}
+        </li>
+      );
+    })}
+  </ol>
+
+  {person.chapters && person.chapters.length > 1 && (
+    <div class="journey__chapters" aria-label={`${person.relationshipLabel} chapters`}>
+      {person.chapters.map((chapter) => (
+        <p>
+          <span>{chapter.label}</span>
+          {chapter.period && <small>{chapter.period}</small>}
+        </p>
+      ))}
+    </div>
+  )}
+</section>

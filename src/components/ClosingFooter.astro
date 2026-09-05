@@ -1,0 +1,16 @@
+---
+import { siteConfig } from "../data/site";
+---
+
+<section class="closing section-shell" data-reveal>
+  <div class="closing__thought">
+    {siteConfig.closing.map((line) => <p>{line}</p>)}
+  </div>
+  <p class="closing__occasion">{siteConfig.occasion}</p>
+</section>
+
+<footer class="site-footer section-shell">
+  <p>Made with gratitude by {siteConfig.author.name}</p>
+  <p>{siteConfig.date}</p>
+  {siteConfig.privacy.footer && <small>{siteConfig.privacy.footer}</small>}
+</footer>

@@ -1,0 +1,14 @@
+---
+import type { PersonConfig } from "../data/types";
+
+interface Props { person: PersonConfig }
+const { person } = Astro.props;
+---
+
+<section class="stayed section-shell" aria-labelledby="stayed-title" data-reveal>
+  <p class="eyebrow">What stayed</p>
+  <h2 id="stayed-title">{person.whatStayed.title}</h2>
+  <div class="stayed__copy">
+    {person.whatStayed.description.map((paragraph) => <p>{paragraph}</p>)}
+  </div>
+</section>

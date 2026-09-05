@@ -1,0 +1,99 @@
+---
+import "../styles/global.css";
+
+import { siteConfig } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  noIndex?: boolean;
+  pageClass?: string;
+}
+
+const {
+  title = siteConfig.title,
+  description = siteConfig.metadata.description,
+  canonicalPath = "/",
+  noIndex = siteConfig.privacy.noIndex,
+  pageClass = "",
+} = Astro.props;
+const canonicalUrl = new URL(canonicalPath, siteConfig.siteUrl);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    <meta id="theme-color" name="theme-color" content={siteConfig.metadata.themeColorLight} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    <script is:inline>
+      (() => {
+        document.documentElement.classList.add("has-js");
+        try {
+          const saved = localStorage.getItem("still-with-me-theme");
+          if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+        } catch {}
+      })();
+    </script>
+  </head>
+  <body class={pageClass}>
+    <button class="theme-toggle" type="button" aria-label="Use dark theme" aria-pressed="false">
+      <span class="theme-toggle__mark" aria-hidden="true"></span>
+    </button>
+    <slot />
+    <script>
+      const root = document.documentElement;
+      const button = document.querySelector<HTMLButtonElement>(".theme-toggle");
+      const themeMeta = document.querySelector<HTMLMetaElement>("#theme-color");
+      const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+      const activeTheme = () => root.dataset.theme ?? (media.matches ? "dark" : "light");
+      const updateButton = () => {
+        if (!button) return;
+        const isDark = activeTheme() === "dark";
+        button.setAttribute("aria-pressed", String(isDark));
+        button.setAttribute("aria-label", `Use ${isDark ? "light" : "dark"} theme`);
+        themeMeta?.setAttribute("content", isDark ? "#171816" : "#f4f1ea");
+      };
+
+      button?.addEventListener("click", () => {
+        const next = activeTheme() === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        try { localStorage.setItem("still-with-me-theme", next); } catch {}
+        updateButton();
+      });
+      media.addEventListener("change", updateButton);
+      updateButton();
+
+      if (
+        "IntersectionObserver" in window &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { rootMargin: "0px 0px -12%", threshold: 0.08 },
+        );
+        document.querySelectorAll("[data-reveal]").forEach((element) => observer.observe(element));
+      } else {
+        document.querySelectorAll("[data-reveal]").forEach((element) => element.classList.add("is-visible"));
+      }
+    </script>
+  </body>
+</html>

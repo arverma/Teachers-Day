@@ -1,0 +1,23 @@
+---
+import type { PersonConfig } from "../data/types";
+
+interface Props { person: PersonConfig }
+const { person } = Astro.props;
+const transition = person.thenNow;
+---
+
+{transition?.enabled && (
+  <section class="then-now section-shell" aria-label="Then and now" data-reveal>
+    <div class="then-now__moment">
+      <p class="eyebrow">{transition.then.label ?? "Then"}</p>
+      <h2>{transition.then.title}</h2>
+      {transition.then.description && <p>{transition.then.description}</p>}
+    </div>
+    <div class="then-now__arrow" aria-hidden="true"><span></span></div>
+    <div class="then-now__moment">
+      <p class="eyebrow">{transition.now.label ?? "Now"}</p>
+      <h2>{transition.now.title}</h2>
+      {transition.now.description && <p>{transition.now.description}</p>}
+    </div>
+  </section>
+)}

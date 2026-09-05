@@ -1,0 +1,13 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig } from "../data/site";
+---
+
+<BaseLayout pageClass="home-page">
+  <main class="home">
+    <p class="eyebrow">A COLLECTION OF THANK-YOUS</p>
+    <h1>{siteConfig.title}</h1>
+    <p>{siteConfig.subtitle}</p>
+    <small>Made by {siteConfig.author.name}</small>
+  </main>
+</BaseLayout>
