@@ -40,7 +40,8 @@ const mentorDrafts: MentorDraft[] = [
   { slug: "mr-chingangbam-collin-singh", name: "Mr. Chingangbam Collin Singh", kind: "engineering-admin" },
   { slug: "salam-monorama-devi", name: "Salam Monorama Devi", kind: "engineering-admin" },
   { slug: "dr-kavya-sen", name: "Dr. Kavya Sen", kind: "mba-faculty" },
-  { slug: "sigmoid-senior", name: "Senior at Sigmoid", kind: "sigmoid-senior" },
+  { slug: "ishaan-sigmoid", name: "Ishaan", kind: "sigmoid-senior" },
+  { slug: "karthik-sigmoid", name: "Karthik", kind: "sigmoid-senior" },
   { slug: "flipkart-senior", name: "Senior at Flipkart", kind: "flipkart-senior" },
   { slug: "quillbot-senior", name: "Senior at QuillBot", kind: "quillbot-senior" },
 ];
@@ -55,6 +56,7 @@ interface CompanySeniorPreset {
   period: string;
   role: string;
   chapter: string;
+  memory?: string;
   lesson: string;
   stayed: string[];
   then: string;
@@ -68,6 +70,7 @@ function createCompanySeniorPreset({
   period,
   role,
   chapter,
+  memory,
   lesson,
   stayed,
   then,
@@ -84,7 +87,7 @@ function createCompanySeniorPreset({
       followUp: `I worked with you at ${company}. I still use many of the things I learned from you there.`,
     },
     pathsCrossed: {
-      entries: [{ eyebrow: period, title: chapter, organization: company }],
+      entries: [{ eyebrow: period, title: chapter, organization: company, description: memory }],
     },
     whatStayed: { title: lesson, description: stayed },
     thenNow: {
@@ -254,38 +257,38 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     relationshipLabel: "MBA Faculty",
     stages: ["mba"],
     chapters: [{ stage: "mba", label: "MBA", period: "2025 - 2027" }],
-    intro: { subtitle: "A small thank you for helping me look at problems differently." },
+    intro: { subtitle: "A small thank you for making the first immersion so memorable." },
     openingThought: {
       followUp:
-        "I met you at IIM Bodh Gaya after I had already spent years working as an engineer. You helped me look beyond only the technical side.",
+        "I still remember the interactions during the very first immersion. It was the beginning of a new kind of learning for me, and you made it feel welcoming from the start.",
     },
     pathsCrossed: {
       entries: [
         {
           eyebrow: "MBA",
-          title: "Learning to see the bigger picture",
+          title: "The first immersion, on campus and online",
           organization: "IIM Bodh Gaya",
           period: "2025 - 2027",
           description:
-            "I am doing my MBA while continuing my work in data engineering. This chapter is helping me connect technology with people and business.",
+            "I remember the games, the classroom discussions, and the conversations in the online forum. I also remember you eagerly waiting to see student faces while everyone played a little hide and seek with their cameras.",
         },
       ],
     },
     whatStayed: {
-      title: "The bigger picture",
+      title: "Showing up",
       description: [
-        "Your questions made me think beyond how something works. I started asking why I am doing it and who it will help.",
-        "I now carry that thinking into technical decisions, conversations with other teams, and the way I lead work.",
+        "There have been morning classes, late-night classes, and back-to-back exams, all while managing work pressure at the same time.",
+        "It has not always been easy, but I hope this effort will become meaningful and open better paths later in my career.",
       ],
     },
     thenNow: {
       enabled: true,
-      then: { title: "I was an engineer mostly thinking about correctness and scale." },
-      now: { title: "Now, I am also learning to think about people, strategy, and long-term value." },
+      then: { title: "I joined the first immersion curious about what this new chapter would bring." },
+      now: { title: "Now, I am learning to make space for study even when work and life are already full." },
     },
     defaultNote: [
-      "Thank you for helping me see familiar problems from a different angle.",
-      "I am already using these lessons in the way I communicate, make decisions, and work with people outside engineering.",
+      "Thank you for making the first immersion lively, warm, and worth remembering.",
+      "The games, discussions, long classes, and small online moments made the pressure easier to carry. I hope I will look back and see how much this journey shaped my career.",
     ],
     easterEgg: { enabled: false, type: "quote", lines: [] },
   },
@@ -295,16 +298,18 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
     period: "2019 - 2021",
     role: "Software Engineer I",
     chapter: "Learning how real production systems work",
-    lesson: "Being practical",
+    memory:
+      "I remember the lunch walks, evening tea, lunches, and the occasional dinner. Friday evenings often meant badminton or cricket. Those simple breaks made a demanding first job feel lighter and gave me space to learn from you beyond project meetings.",
+    lesson: "Learning widely",
     stayed: [
-      "You helped me understand that writing working code is only the first step. A real system also has to be reliable and easy for others to operate.",
-      "I carried this practical way of thinking with me when I moved on to much larger data platforms.",
+      "As a fresher, I worked on several short projects. You helped me gather a breadth of knowledge in that small span of time instead of seeing each task in isolation.",
+      "That learning and mentorship still help me today when I design data systems at a much larger scale.",
     ],
-    then: "I was an engineer building my first production data pipelines.",
-    now: "Today, I still check whether a big technical idea will actually work well in production.",
+    then: "I was a fresher learning from every short project that came my way.",
+    now: "Today, those early lessons still guide me while I design some of the largest data systems I have worked on.",
     note: [
-      "Thank you for patiently sharing what you had learned from working on real systems.",
-      "The habits I picked up at Sigmoid stayed with me and helped me handle every bigger challenge that came later.",
+      "Thank you for the time, conversations, and mentorship you gave me during those early years at Sigmoid.",
+      "I hope I get the chance to work with you again, this time on larger data problems together.",
     ],
   }),
   "flipkart-senior": createCompanySeniorPreset({

@@ -59,7 +59,8 @@ The quick-edit area includes your current recipients and placeholders, including
 - an engineering professor (`dr-nagesh-ch`)
 - two engineering administrators (`mr-chingangbam-collin-singh` and `salam-monorama-devi`)
 - an MBA faculty member (`dr-kavya-sen`)
-- a senior from Sigmoid (`sigmoid-senior`)
+- Ishaan from Sigmoid (`ishaan-sigmoid`)
+- Karthik from Sigmoid (`karthik-sigmoid`)
 - a senior from Flipkart (`flipkart-senior`)
 - a senior from QuillBot (`quillbot-senior`)
 

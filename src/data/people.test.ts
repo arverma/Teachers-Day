@@ -12,7 +12,8 @@ describe("recipient configuration", () => {
         "mr-chingangbam-collin-singh",
         "salam-monorama-devi",
         "dr-kavya-sen",
-        "sigmoid-senior",
+        "ishaan-sigmoid",
+        "karthik-sigmoid",
         "flipkart-senior",
         "quillbot-senior",
       ]),
@@ -22,7 +23,9 @@ describe("recipient configuration", () => {
     );
 
     expect(getPersonBySlug("arjun-mentor")).toBeUndefined();
-    expect(getPersonBySlug("sigmoid-senior")?.stages).toEqual(["sigmoid"]);
+    expect(getPersonBySlug("sigmoid-senior")).toBeUndefined();
+    expect(getPersonBySlug("ishaan-sigmoid")?.stages).toEqual(["sigmoid"]);
+    expect(getPersonBySlug("karthik-sigmoid")?.stages).toEqual(["sigmoid"]);
     expect(getPersonBySlug("flipkart-senior")?.stages).toEqual(["flipkart"]);
     expect(getPersonBySlug("quillbot-senior")?.stages).toEqual(["quillbot"]);
   });
@@ -94,6 +97,22 @@ describe("recipient configuration", () => {
       expect(manipurCopy).toContain("mess");
       expect(manipurCopy).toContain("water problems");
       expect(manipurCopy).not.toContain("Board of Studies");
+    }
+  });
+
+  it("uses Aman's real MBA immersion and Sigmoid memories", () => {
+    const mbaCopy = JSON.stringify(getPersonBySlug("dr-kavya-sen"));
+    expect(mbaCopy).toContain("first immersion");
+    expect(mbaCopy).toContain("hide and seek");
+    expect(mbaCopy).toContain("back-to-back exams");
+    expect(mbaCopy).toContain("work pressure");
+
+    for (const slug of ["ishaan-sigmoid", "karthik-sigmoid"]) {
+      const sigmoidCopy = JSON.stringify(getPersonBySlug(slug));
+      expect(sigmoidCopy).toContain("lunch walks");
+      expect(sigmoidCopy).toContain("evening tea");
+      expect(sigmoidCopy).toContain("badminton or cricket");
+      expect(sigmoidCopy).toContain("larger data problems");
     }
   });
 
