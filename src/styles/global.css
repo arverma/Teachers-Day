@@ -287,6 +287,38 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .closing__thought p { max-width: 18ch; margin: 0.15em 0; }
 .closing__thought p:last-child { color: var(--accent); }
 .closing__occasion { margin: 4rem 0 0; color: var(--muted); font: 400 1.1rem/1.5 Georgia, serif; }
+.whatsapp-share {
+  position: fixed;
+  z-index: 9;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, #25d366 72%, var(--line));
+  border-radius: 50%;
+  background: #25d366;
+  color: #102a19;
+  box-shadow: 0 0.45rem 1.4rem color-mix(in srgb, #102a19 22%, transparent);
+  text-decoration: none;
+  transition: transform 160ms ease, background 160ms ease;
+}
+.whatsapp-share svg {
+  width: 1.65rem;
+  height: 1.65rem;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+.whatsapp-share svg path:last-child { fill: currentColor; stroke: none; }
+.whatsapp-share:hover {
+  background: color-mix(in srgb, #25d366 86%, white);
+  transform: translateY(-0.15rem);
+}
 
 .site-footer {
   display: grid;

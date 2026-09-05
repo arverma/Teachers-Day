@@ -82,6 +82,21 @@ describe("recipient configuration", () => {
     );
   });
 
+  it("uses personal school and Manipur memories instead of résumé language", () => {
+    const schoolCopy = JSON.stringify(getPersonBySlug("khalid-kareem-khan"));
+    expect(schoolCopy).toContain("morning classes");
+    expect(schoolCopy).toContain("Saturday quiz");
+
+    for (const slug of ["dr-amarendra-kumar-das", "salam-monorama-devi"]) {
+      const manipurCopy = JSON.stringify(getPersonBySlug(slug));
+      expect(manipurCopy).toContain("weather");
+      expect(manipurCopy).toContain("hill beside the college");
+      expect(manipurCopy).toContain("mess");
+      expect(manipurCopy).toContain("water problems");
+      expect(manipurCopy).not.toContain("Board of Studies");
+    }
+  });
+
   it("links to Aman's profiles", () => {
     expect(siteConfig.author.fullName).toBe("Aman Ranjan Verma");
     expect(siteConfig.author.linkedinUrl).toBe("https://www.linkedin.com/in/ar-verma");
