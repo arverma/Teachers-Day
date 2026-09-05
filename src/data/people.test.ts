@@ -15,10 +15,9 @@ describe("recipient configuration", () => {
         "ishaan-ojha",
         "karthik-nandam",
         "pradyot-h-adavi",
-        "rafi-quillbot",
-        "muhammad-rafi-quillbot",
-        "jayant-quillbot",
-        "aditya-malik-quillbot",
+        "muhammad-rafi",
+        "jayant-kumar",
+        "aditya-malik",
       ]),
     );
     expect(new Set(people.map((person) => person.category))).toEqual(
@@ -30,7 +29,7 @@ describe("recipient configuration", () => {
     expect(getPersonBySlug("ishaan-ojha")?.stages).toEqual(["sigmoid"]);
     expect(getPersonBySlug("karthik-nandam")?.stages).toEqual(["sigmoid"]);
     expect(getPersonBySlug("pradyot-h-adavi")?.stages).toEqual(["flipkart"]);
-    expect(getPersonBySlug("rafi-quillbot")?.stages).toEqual(["quillbot"]);
+    expect(getPersonBySlug("muhammad-rafi")?.stages).toEqual(["quillbot"]);
     expect(getPersonBySlug("flipkart-senior")).toBeUndefined();
     expect(getPersonBySlug("quillbot-senior")).toBeUndefined();
   });
@@ -133,10 +132,9 @@ describe("recipient configuration", () => {
 
   it("uses Aman's shared QuillBot memories for each person", () => {
     for (const slug of [
-      "rafi-quillbot",
-      "muhammad-rafi-quillbot",
-      "jayant-quillbot",
-      "aditya-malik-quillbot",
+      "muhammad-rafi",
+      "jayant-kumar",
+      "aditya-malik",
     ]) {
       const quillbotCopy = JSON.stringify(getPersonBySlug(slug));
       expect(quillbotCopy).toContain("offsites");
