@@ -56,10 +56,10 @@
 
 ## Task 7: Deployment and documentation
 
-- [x] GitHub Pages action deploys static output on pushes to `main`.
-- [x] CNAME placeholder is included.
+- [x] Cloudflare Pages build settings deploy static output from `main` through Git integration.
+- [x] `mentor.arverma.dev` is configured as the canonical production domain.
 - [x] README documents adding recipients and local/production workflows.
-- Verify: workflow and README inspection.
+- Verify: Cloudflare settings and README inspection.
 - Dependencies: Tasks 3 and 6.
 
 ## Task 8: Final verification

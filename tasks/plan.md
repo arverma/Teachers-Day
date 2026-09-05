@@ -2,11 +2,11 @@
 
 ## Overview
 
-Build a configuration-driven Astro microsite that statically generates one private-by-default appreciation page per recipient, without exposing a recipient directory.
+Build a configuration-driven Astro microsite that statically generates one private-by-default appreciation page per recipient, without exposing a recipient directory, for deployment at `mentor.arverma.dev` on Cloudflare Pages.
 
 ## Architecture Decisions
 
-- Astro static output with one generated `/thankyou/<slug>/index.html` page per person.
+- Astro static output with one generated `/thankyou/<slug>/index.html` page per person, deployed through Cloudflare Pages Git integration.
 - Typed site and recipient data, backed by a small runtime validator that fails builds on unsafe or malformed configuration.
 - Plain Astro components and CSS; client JavaScript is limited to theme persistence and viewport reveals.
 - A mobile-first vertical journey becomes horizontal on wider screens.
@@ -35,7 +35,7 @@ Build a configuration-driven Astro microsite that statically generates one priva
 
 ### Phase 3: Ship
 
-- [x] Task 7: Add GitHub Pages deployment, CNAME, and editing/development documentation.
+- [x] Task 7: Add Cloudflare Pages deployment settings, custom-domain configuration, and editing/development documentation.
 - [x] Task 8: Run tests, type checks, production build, browser QA, and final code review.
 
 ### Checkpoint: Complete
@@ -46,11 +46,11 @@ Build a configuration-driven Astro microsite that statically generates one priva
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| GitHub Pages route refreshes | High | Emit directory-style static routes and a root `404.html`. |
+| Cloudflare Pages route refreshes | High | Emit directory-style static routes and a root `404.html`, which Pages recognizes automatically. |
 | Invalid content creates broken pages | High | Validate slugs, stage references, uniqueness, and required copy during import/build. |
 | Timeline becomes cramped | Medium | Switch from a vertical mobile track to a horizontal desktop track at 48rem. |
 | Motion or theme script harms UX | Medium | Respect reduced motion, use system theme by default, and keep scripts dependency-free. |
 
 ## Open Questions
 
-- Replace `yourdomain.com` before publishing.
+- Connect the repository and `mentor.arverma.dev` in the Cloudflare dashboard before publishing.

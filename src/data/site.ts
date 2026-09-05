@@ -3,7 +3,7 @@ import type { JourneyStage } from "./types";
 export const siteConfig = {
   title: "Still With Me",
   subtitle: "For the people whose lessons didn't end when the class did.",
-  siteUrl: "https://yourdomain.com",
+  siteUrl: "https://mentor.arverma.dev",
   author: {
     name: "Aman",
     fullName: "Aman Verma",

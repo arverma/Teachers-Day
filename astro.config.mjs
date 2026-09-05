@@ -2,6 +2,6 @@ import { defineConfig } from "astro/config";
 
 export default defineConfig({
   output: "static",
-  site: "https://yourdomain.com",
+  site: "https://mentor.arverma.dev",
   trailingSlash: "always",
 });

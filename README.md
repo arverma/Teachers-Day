@@ -2,7 +2,7 @@
 
 A quiet, configuration-driven collection of thank-yous for teachers and mentors whose lessons stayed. Every recipient gets a real static page at `/thankyou/<slug>/`; the root page never exposes a recipient directory.
 
-Built with Astro and TypeScript for fast, server-free hosting on GitHub Pages.
+Built with Astro and TypeScript for fast, server-free hosting on Cloudflare Pages at `mentor.arverma.dev`.
 
 ## Local development
 
@@ -38,8 +38,8 @@ The static site is written to `dist/`. No server, database, API, analytics, or r
 4. Change the name, relationship, and stage or stages.
 5. Write the `whatStayed` text and personal `note`.
 6. Add timeline `chapters`, Then → Now, or an easter egg if they fit the story.
-7. Run `pnpm test && pnpm build`.
-8. Commit and push. A push to `main` deploys automatically.
+7. Run `pnpm build:cloudflare`.
+8. Commit and push. Cloudflare deploys `main` to production and other branches as previews.
 
 All meaningful recipient copy lives in that one data file. The shared journey, occasion, author, footer, privacy defaults, and universal copy live in `src/data/site.ts`.
 
@@ -61,18 +61,45 @@ Remove or rewrite the examples before publishing. Never add contact details or c
 
 The data validator rejects duplicate/invalid slugs, unknown journey stages, missing core note content, and enabled easter eggs with no lines.
 
-## Custom domain and GitHub Pages
+## Deploying to Cloudflare Pages
 
-Before publishing, replace `yourdomain.com` in both:
+This repository is prepared for Cloudflare Pages Git integration. It intentionally has no deployment token, Cloudflare adapter, Worker, or GitHub deployment workflow: the generated `dist/` directory is a complete static site.
 
-- `astro.config.mjs`
-- `public/CNAME`
+### 1. Connect the repository
 
-Also set the matching `siteUrl` in `src/data/site.ts` so canonical metadata uses the correct origin. Do not add an Astro `base` when using a custom domain.
+1. Push this repository to GitHub.
+2. In Cloudflare, open **Workers & Pages → Create application → Pages → Import an existing Git repository**.
+3. Authorize GitHub and select this repository.
+4. Use these build settings:
 
-In the GitHub repository, open **Settings → Pages** and choose **GitHub Actions** as the source. Configure the domain and DNS in GitHub and with your DNS provider; the CNAME file alone does not configure DNS.
+| Setting | Value |
+|---|---|
+| Project name | `still-with-me` (or another available name) |
+| Production branch | `main` |
+| Framework preset | `Astro` |
+| Build command | `pnpm build:cloudflare` |
+| Build output directory | `dist` |
+| Root directory | Repository root (leave blank) |
 
-The workflow in `.github/workflows/deploy.yml` runs on every push to `main` and can also be started manually.
+The repository pins Node.js in `.node-version`. Under **Settings → Environment variables**, add `PNPM_VERSION` with the value `11.19.0` for both production and preview builds so Cloudflare uses the same package-manager version as local development.
+
+After **Save and Deploy**, Cloudflare creates a temporary `*.pages.dev` address. Every push to `main` becomes a production deployment; other branches and pull requests receive isolated preview deployments.
+
+### 2. Connect `mentor.arverma.dev`
+
+1. Open the new Pages project.
+2. Choose **Custom domains → Set up a domain**.
+3. Enter `mentor.arverma.dev` and continue.
+
+If `arverma.dev` already uses Cloudflare DNS, Cloudflare can create the DNS record automatically. Otherwise, first associate the domain in the Pages dashboard and then create a CNAME at the current DNS provider pointing `mentor` to the generated `<project>.pages.dev` hostname. Do not create the CNAME before associating the custom domain in Pages.
+
+The production origin is already configured in `astro.config.mjs` and `src/data/site.ts`, so canonical and Open Graph URLs resolve to `https://mentor.arverma.dev`.
+
+### 3. Verify and roll back
+
+After the first deployment, check `/`, every configured `/thankyou/<slug>/` route, and an unknown route. Cloudflare Pages recognizes the generated top-level `404.html` automatically.
+
+If a release is wrong, open the project's **Deployments** list, select the last known-good production deployment, and choose **Rollback**. Cloudflare keeps previous deployments available for this purpose.
 
 ## Privacy and metadata
 
@@ -89,7 +116,7 @@ src/
 ├── layouts/          Metadata, theme, and shared document shell
 ├── pages/            Root, static recipient routes, and 404
 └── styles/           Editorial responsive visual system
-public/               Favicon and custom-domain CNAME
+public/               Favicon and Cloudflare response headers
 ```
 
 ## Design behavior
