@@ -10,7 +10,11 @@ import { siteConfig } from "../data/site";
 </section>
 
 <footer class="site-footer section-shell">
-  <p>Made with gratitude by {siteConfig.author.name}</p>
+  <p>
+    Made with gratitude by {siteConfig.author.name}
+    <span aria-hidden="true"> · </span>
+    <a href={siteConfig.author.linkedinUrl} rel="me noreferrer">LinkedIn</a>
+  </p>
   <p>{siteConfig.date}</p>
   {siteConfig.privacy.footer && <small>{siteConfig.privacy.footer}</small>}
 </footer>

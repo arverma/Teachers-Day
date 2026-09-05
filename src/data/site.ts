@@ -6,7 +6,8 @@ export const siteConfig = {
   siteUrl: "https://mentor.arverma.dev",
   author: {
     name: "Aman",
-    fullName: "Aman Verma",
+    fullName: "Aman Ranjan Verma",
+    linkedinUrl: "https://www.linkedin.com/in/ar-verma",
   },
   occasion: "Happy Teacher's Day.",
   date: "September 2026",
@@ -30,10 +31,11 @@ export const siteConfig = {
   ],
   journey: [
     { id: "school", label: "School" },
-    { id: "college", label: "College" },
-    { id: "engineering", label: "Engineering" },
-    { id: "career", label: "Career" },
-    { id: "mba", label: "MBA" },
+    { id: "engineering", label: "IIIT Manipur" },
+    { id: "sigmoid", label: "Sigmoid" },
+    { id: "flipkart", label: "Flipkart" },
+    { id: "quillbot", label: "QuillBot" },
+    { id: "mba", label: "IIM Bodh Gaya" },
     { id: "today", label: "Today" },
   ] satisfies JourneyStage[],
 } as const;

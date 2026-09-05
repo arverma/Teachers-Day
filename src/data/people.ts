@@ -2,91 +2,118 @@ import type { PersonConfig } from "./types";
 import { siteConfig } from "./site";
 import { validatePeople } from "./validate";
 
-export const people = [
-  {
-    slug: "meera-maam",
-    name: "Meera Ma'am",
-    displayName: "Meera Ma'am",
+type MentorKind = "school-teacher" | "engineering-professor" | "mba-faculty" | "career-mentor";
+
+interface MentorDraft {
+  slug: string;
+  name: string;
+  kind: MentorKind;
+  note?: string[];
+}
+
+/*
+ * QUICK EDIT AREA
+ * Usually you only need to change `slug`, `name`, and optionally `note`.
+ * The longer journey, institution, date, and career copy is generated below
+ * from the verified timeline in Aman's CV.
+ */
+const mentorDrafts: MentorDraft[] = [
+  { slug: "meera-maam", name: "Meera Ma'am", kind: "school-teacher" },
+  { slug: "dr-nagesh-ch", name: "Dr. Nagesh Ch", kind: "engineering-professor" },
+  { slug: "dr-kavya-sen", name: "Dr. Kavya Sen", kind: "mba-faculty" },
+  { slug: "arjun-mentor", name: "Arjun", kind: "career-mentor" },
+];
+
+interface MentorPreset extends Omit<PersonConfig, "slug" | "name" | "displayName" | "note"> {
+  defaultNote: string[];
+}
+
+const mentorPresets: Record<MentorKind, MentorPreset> = {
+  "school-teacher": {
     category: "teacher",
     relationshipLabel: "School Teacher",
     stages: ["school"],
-    chapters: [{ stage: "school", label: "Secondary school", period: "2007–2009" }],
+    chapters: [{ stage: "school", label: "School years" }],
     intro: { subtitle: "A small corner of the internet made to say thank you." },
     openingThought: {
-      followUp: "Our paths crossed in a classroom. The habit of staying curious followed me far beyond it.",
+      followUp:
+        "Our paths crossed before the degrees and job titles. The confidence to keep learning began in classrooms like yours.",
     },
     pathsCrossed: {
       entries: [
         {
           eyebrow: "School",
-          title: "A classroom where questions were welcome",
-          organization: "Northfield School",
-          period: "2007 — 2009",
+          title: "The foundation years",
+          period: "School years",
+          description:
+            "The chapter that came before engineering, a gold medal, and a career spent learning how complex systems work.",
         },
       ],
     },
     whatStayed: {
       title: "Curiosity",
       description: [
-        "You made asking one more question feel more important than arriving at an answer quickly.",
-        "That instinct still appears whenever I am learning a new system or trying to understand why something behaves the way it does.",
+        "The habit of asking one more question became part of how I learn and solve problems.",
+        "It followed me from being a school topper to IIIT Manipur, and later into a career building data systems used at enormous scale.",
       ],
     },
     thenNow: {
       enabled: true,
-      then: { title: "A classroom where you made room for “why”." },
-      now: { title: "I build software for a living, and I am still asking it." },
+      then: { title: "A student learning to trust his questions." },
+      now: { title: "A senior data engineer who still begins by asking why." },
     },
-    note: {
-      salutation: "Dear Meera Ma'am,",
-      paragraphs: [
-        "I may not remember every page we covered, but I remember the patience with which you let an idea become clear.",
-        "Thank you for showing me that careful thinking is worth the extra minute.",
-      ],
-    },
+    defaultNote: [
+      "I may not remember every page we covered, but I remember the confidence that a patient teacher can place in a student.",
+      "Thank you for contributing to the foundation on which every later chapter was built.",
+    ],
     easterEgg: { enabled: false, type: "quote", lines: [] },
   },
-  {
-    slug: "professor-iyer",
-    name: "Professor Iyer",
-    displayName: "Professor Iyer",
+  "engineering-professor": {
     category: "professor",
     relationshipLabel: "Engineering Professor",
     stages: ["engineering"],
-    chapters: [{ stage: "engineering", label: "Computer engineering", period: "2013–2017" }],
+    chapters: [
+      {
+        stage: "engineering",
+        label: "Electronics & Communication Engineering",
+        period: "2015 - 2019",
+      },
+    ],
     intro: { eyebrow: "FOR", subtitle: "A note for one of the people whose lessons stayed." },
     openingThought: {
-      followUp: "Our paths crossed while engineering was still mostly theory to me. Your standard for understanding stayed practical.",
+      followUp:
+        "Our paths crossed at IIIT Manipur, while engineering was still becoming a way of thinking rather than only a degree.",
     },
     pathsCrossed: {
       entries: [
         {
           eyebrow: "Engineering",
-          title: "Systems and algorithms",
-          organization: "Meridian Institute of Technology",
-          period: "2013 — 2017",
+          title: "A classroom where questions were welcome",
+          organization: "IIIT Senapati, Manipur",
+          period: "2015 - 2019",
+          description:
+            "Four years in Electronics and Communication Engineering, completed with a 9.13 CPI and a gold medal.",
         },
       ],
     },
     whatStayed: {
-      title: "Thinking clearly",
+      title: "Rigor",
       description: [
-        "You pushed us to explain a solution plainly before calling it complete.",
-        "Years later, clarity is still the test I use for designs, reviews, and difficult engineering decisions.",
+        "Engineering taught me to move past a plausible answer and look for one that can withstand careful questioning.",
+        "That standard now shapes how I design distributed systems, review technical decisions, and document work for the people who inherit it.",
       ],
     },
     thenNow: {
       enabled: true,
-      then: { title: "A whiteboard full of ideas that had to survive a simple question." },
-      now: { title: "Complex systems still become manageable one clear explanation at a time." },
+      then: { title: "An ECE student learning to make ideas precise." },
+      now: {
+        title: "A senior data engineer—and a member of IIIT Manipur's Board of Studies—still applying that rigor.",
+      },
     },
-    note: {
-      salutation: "Professor Iyer,",
-      paragraphs: [
-        "Thank you for expecting precision without making uncertainty feel embarrassing.",
-        "The combination of rigor and openness has influenced how I learn, and how I try to help others learn too.",
-      ],
-    },
+    defaultNote: [
+      "Thank you for expecting precision without making uncertainty feel embarrassing.",
+      "The rigor of those engineering years stayed with me through every system I built and every difficult problem I learned to explain clearly.",
+    ],
     easterEgg: {
       enabled: true,
       type: "code",
@@ -94,87 +121,95 @@ export const people = [
       lines: ["understand(idea)", "  before", "implement(idea)"],
     },
   },
-  {
-    slug: "dr-kavya-sen",
-    name: "Dr. Kavya Sen",
-    displayName: "Dr. Kavya Sen",
+  "mba-faculty": {
     category: "professor",
     relationshipLabel: "MBA Faculty",
     stages: ["mba"],
-    chapters: [{ stage: "mba", label: "MBA", period: "2024–2026" }],
+    chapters: [{ stage: "mba", label: "MBA", period: "2025 - 2027" }],
     intro: { subtitle: "Something thoughtful, for someone who changed how I frame a problem." },
     openingThought: {
-      followUp: "Our paths crossed during the MBA. The questions you asked changed the angle from which I looked at decisions.",
+      followUp:
+        "Our paths crossed at IIM Bodh Gaya, after engineering and years of building data platforms had already shaped how I saw problems.",
     },
     pathsCrossed: {
       entries: [
         {
           eyebrow: "MBA",
-          title: "Strategy and decision-making",
-          organization: "Westbridge School of Management",
-          period: "2024 — 2026",
+          title: "A wider view of decisions and their consequences",
+          organization: "IIM Bodh Gaya",
+          period: "2025 - 2027",
+          description:
+            "An MBA chapter alongside a career in data engineering, connecting technical choices with people, strategy, and business outcomes.",
         },
       ],
     },
     whatStayed: {
       title: "Perspective",
       description: [
-        "You taught me to pause before solving the problem in front of me and ask whether it was the right problem at all.",
-        "That pause now travels with me into product conversations, engineering trade-offs, and decisions where the obvious answer is rarely the complete one.",
+        "The questions you asked widened the frame—from how a system works to why it should exist and whom it should serve.",
+        "That perspective now accompanies the technical judgment, stakeholder communication, and ownership my work demands.",
       ],
     },
-    thenNow: { enabled: false, then: { title: "" }, now: { title: "" } },
-    note: {
-      salutation: "Dear Dr. Sen,",
-      paragraphs: [
-        "Your classes made disagreement feel like a tool for seeing more, not a contest to be won.",
-        "Thank you for widening the frame. It has made my thinking more patient and my decisions more considered.",
-      ],
-      closing: "With gratitude,",
+    thenNow: {
+      enabled: true,
+      then: { title: "An engineer used to solving for correctness and scale." },
+      now: { title: "A leader learning to solve for people, strategy, and lasting value too." },
     },
+    defaultNote: [
+      "Thank you for helping me see familiar problems from unfamiliar angles.",
+      "The lessons from this chapter are already changing how I communicate decisions, work with stakeholders, and think beyond the implementation.",
+    ],
     easterEgg: { enabled: false, type: "quote", lines: [] },
   },
-  {
-    slug: "arjun-mentor",
-    name: "Arjun",
-    displayName: "Arjun",
+  "career-mentor": {
     category: "mentor",
     relationshipLabel: "Career Mentor",
-    stages: ["career"],
+    stages: ["sigmoid", "flipkart", "quillbot"],
     chapters: [
-      { stage: "career", label: "Harbor Labs", period: "2019–2021" },
-      { stage: "career", label: "Juniper Works", period: "2021–2023" },
-      { stage: "career", label: "The conversations after", period: "2023–Today" },
+      { stage: "sigmoid", label: "Software Engineer I · Sigmoid", period: "2019 - 2021" },
+      { stage: "flipkart", label: "Data Engineer II · Flipkart", period: "2021 - 2023" },
+      { stage: "quillbot", label: "Senior Data Engineer · QuillBot", period: "2023 - Present" },
     ],
-    intro: { subtitle: "A small corner of the internet made to say thank you." },
+    intro: { eyebrow: "FOR", subtitle: "For someone who helped turn experience into judgment." },
     openingThought: {
-      followUp: "Our work changed, and the companies did too. Your example kept showing up in how I approached both.",
+      followUp:
+        "Our paths crossed somewhere between my first production data pipelines and the responsibility of designing platforms at petabyte scale.",
     },
     pathsCrossed: {
       entries: [
-        { eyebrow: "First chapter", title: "My early years in engineering", organization: "Harbor Labs", period: "2019 — 2021" },
-        { eyebrow: "Next chapter", title: "A broader kind of ownership", organization: "Juniper Works", period: "2021 — 2023" },
+        {
+          eyebrow: "2019 - 2021",
+          title: "Learning to put data and machine-learning systems into production",
+          organization: "Sigmoid",
+        },
+        {
+          eyebrow: "2021 - 2023",
+          title: "Taking ownership of financial data systems serving millions",
+          organization: "Flipkart",
+        },
+        {
+          eyebrow: "2023 - Present",
+          title: "Architecting secure, petabyte-scale platforms and mentoring others",
+          organization: "QuillBot",
+        },
       ],
     },
     whatStayed: {
       title: "Ownership",
       description: [
-        "You asked me to look beyond finishing the task and understand what needed to become true for the work to matter.",
-        "That distinction still shapes how I design, communicate, and take responsibility when the path is not obvious.",
+        "You helped me see that seniority is less about having every answer and more about taking responsibility for finding the right one.",
+        "That lesson stayed through migrations, security work, difficult team transitions, and the responsibility of helping other engineers grow.",
       ],
     },
     thenNow: {
       enabled: true,
-      then: { title: "You asked me to stop thinking only about finishing the task." },
-      now: { title: "Ownership is one of the principles I value most in engineering." },
+      then: { title: "An engineer learning how production systems really behave." },
+      now: { title: "A senior engineer designing for scale, continuity, and the people behind the systems." },
     },
-    note: {
-      salutation: "Arjun,",
-      paragraphs: [
-        "You gave advice when it was useful, context when it was missing, and trust before I was completely sure I had earned it.",
-        "Thank you for the example. It has stayed relevant through every change of role and team.",
-      ],
-    },
+    defaultNote: [
+      "Thank you for sharing judgment, not just answers, and for trusting me with problems that required real ownership.",
+      "What I learned from you continues to shape how I build, lead, document, and mentor today.",
+    ],
     easterEgg: {
       enabled: true,
       type: "git",
@@ -189,7 +224,24 @@ export const people = [
       ],
     },
   },
-] satisfies PersonConfig[];
+};
+
+function createPerson({ slug, name, kind, note }: MentorDraft): PersonConfig {
+  const { defaultNote, ...preset } = mentorPresets[kind];
+
+  return {
+    slug,
+    name,
+    displayName: name,
+    ...preset,
+    note: {
+      salutation: `Dear ${name},`,
+      paragraphs: note ?? defaultNote,
+    },
+  };
+}
+
+export const people = mentorDrafts.map(createPerson);
 
 validatePeople(people, siteConfig.journey);
 
