@@ -128,7 +128,7 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
           organization: "MS Memorial Academy",
           period: "School years",
           description:
-            "This was long before engineering and my career, but the things I learned here gave me a strong start.",
+            "Studies are not the only thing I remember. I remember the morning classes, extra classes, solving problems together, standing in queues, discussing topics in the classroom even when no teacher was there, games periods, and the Saturday quiz. These ordinary moments are what make my school memories special.",
         },
       ],
     },
@@ -174,7 +174,7 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
           organization: "IIIT Senapati, Manipur",
           period: "2015 - 2019",
           description:
-            "I studied Electronics and Communication Engineering here, graduated with a 9.13 CPI, and received the gold medal.",
+            "Studies were only one part of those four years. What I remember most now is the lovely weather, the hill beside the college, time with faculty and friends, dinners with other students, the daily mess rush, and even the water problems. These everyday moments made Manipur special.",
         },
       ],
     },
@@ -189,7 +189,7 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
       enabled: true,
       then: { title: "I was an ECE student trying to understand things properly." },
       now: {
-        title: "Today, I build large data systems and serve on IIIT Manipur's Board of Studies. I still try to be just as clear.",
+        title: "Today, I build large data systems, and I still try to understand things with the same clarity.",
       },
     },
     defaultNote: [
@@ -227,7 +227,7 @@ const mentorPresets: Record<MentorKind, MentorPreset> = {
           organization: "IIIT Senapati, Manipur",
           period: "2015 - 2019",
           description:
-            "These four years gave me many memories, and the people who helped things run smoothly were an important part of them.",
+            "Studies were only one part of those four years. What I remember most now is the lovely weather, the hill beside the college, time with faculty and friends, dinners with other students, the daily mess rush, and even the water problems. These everyday moments made Manipur special.",
         },
       ],
     },
