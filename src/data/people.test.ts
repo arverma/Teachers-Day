@@ -1,17 +1,44 @@
 import { describe, expect, it } from "vitest";
 
-import { getPersonBySlug, people } from "./people";
+import { getInitials, getPersonBySlug, mentorGroups, people } from "./people";
 import { siteConfig } from "./site";
 import { validatePeople } from "./validate";
 
 describe("recipient configuration", () => {
+  it("creates short, title-free initials for private landing-page nodes", () => {
+    expect(getInitials("Dr. Nongmeikapam Kishorjit Singh")).toBe("NKS");
+    expect(getInitials("Mr. Chingangbam Collin Singh")).toBe("CCS");
+    expect(getInitials("Ishan Ojha")).toBe("IO");
+  });
+
+  it("groups every recipient once for the landing page", () => {
+    expect(mentorGroups.map((group) => group.id)).toEqual([
+      "school",
+      "engineering-faculty",
+      "engineering-administration",
+      "mba",
+      "sigmoid",
+      "flipkart",
+      "quillbot",
+    ]);
+
+    const groupedSlugs = mentorGroups.flatMap((group) =>
+      group.people.map((person) => person.slug),
+    );
+
+    expect(groupedSlugs).toHaveLength(people.length);
+    expect(new Set(groupedSlugs)).toEqual(new Set(people.map((person) => person.slug)));
+  });
+
   it("contains the required mentor templates across Aman's journey", () => {
     expect(people.map((person) => person.slug)).toEqual(
       expect.arrayContaining([
         "khalid-kareem-khan",
         "mr-chingangbam-collin-singh",
         "salam-monorama-devi",
-        "dr-kavya-sen",
+        "prof-manoj-jaiswal",
+        "prof-amresh-kumar",
+        "dr-aman-srivastava",
         "ishaan-ojha",
         "karthik-nandam",
         "pradyot-h-adavi",
@@ -62,10 +89,11 @@ describe("recipient configuration", () => {
       organization: "IIIT Senapati, Manipur",
       period: "2015 - 2019",
     });
-    expect(getPersonBySlug("dr-kavya-sen")?.pathsCrossed?.entries[0]).toMatchObject({
+    expect(getPersonBySlug("prof-manoj-jaiswal")?.pathsCrossed?.entries[0]).toMatchObject({
       organization: "IIM Bodh Gaya",
       period: "2025 - 2027",
     });
+    expect(getPersonBySlug("dr-kavya-sen")).toBeUndefined();
     expect(getPersonBySlug("khalid-kareem-khan")?.pathsCrossed?.entries[0]).toMatchObject({
       organization: "MS Memorial Academy",
     });
@@ -105,11 +133,13 @@ describe("recipient configuration", () => {
   });
 
   it("uses Aman's real MBA immersion and Sigmoid memories", () => {
-    const mbaCopy = JSON.stringify(getPersonBySlug("dr-kavya-sen"));
-    expect(mbaCopy).toContain("first immersion");
-    expect(mbaCopy).toContain("hide and seek");
-    expect(mbaCopy).toContain("back-to-back exams");
-    expect(mbaCopy).toContain("work pressure");
+    for (const slug of ["prof-manoj-jaiswal", "prof-amresh-kumar", "dr-aman-srivastava"]) {
+      const mbaCopy = JSON.stringify(getPersonBySlug(slug));
+      expect(mbaCopy).toContain("first immersion");
+      expect(mbaCopy).toContain("hide and seek");
+      expect(mbaCopy).toContain("back-to-back exams");
+      expect(mbaCopy).toContain("work pressure");
+    }
 
     for (const slug of ["ishaan-ojha", "karthik-nandam"]) {
       const sigmoidCopy = JSON.stringify(getPersonBySlug(slug));

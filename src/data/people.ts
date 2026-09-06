@@ -18,6 +18,14 @@ interface MentorDraft {
   note?: string[];
 }
 
+export interface MentorGroup {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  people: PersonConfig[];
+}
+
 /*
  * QUICK EDIT AREA
  * Usually you only need to change `slug`, `name`, and optionally `note`.
@@ -39,7 +47,9 @@ const mentorDrafts: MentorDraft[] = [
   { slug: "dr-sanjib-choudhury", name: "Dr. Sanjib Choudhury", kind: "engineering-professor" },
   { slug: "mr-chingangbam-collin-singh", name: "Mr. Chingangbam Collin Singh", kind: "engineering-admin" },
   { slug: "salam-monorama-devi", name: "Salam Monorama Devi", kind: "engineering-admin" },
-  { slug: "dr-kavya-sen", name: "Dr. Kavya Sen", kind: "mba-faculty" },
+  { slug: "prof-manoj-jaiswal", name: "Prof. Manoj Jaiswal", kind: "mba-faculty" },
+  { slug: "prof-amresh-kumar", name: "Prof. Amresh Kumar", kind: "mba-faculty" },
+  { slug: "dr-aman-srivastava", name: "Dr. Aman Srivastava", kind: "mba-faculty" },
   { slug: "ishaan-ojha", name: "Ishan Ojha", kind: "sigmoid-senior" },
   { slug: "karthik-nandam", name: "Karthik Nandam", kind: "sigmoid-senior" },
   { slug: "pradyot-h-adavi", name: "Pradyot H. Adavi", kind: "flipkart-senior" },
@@ -375,6 +385,78 @@ function createPerson({ slug, name, kind, note }: MentorDraft): PersonConfig {
 }
 
 export const people = mentorDrafts.map(createPerson);
+
+export function getInitials(name: string): string {
+  const parts = name
+    .replace(/\b(?:dr|mr|mrs|ms|prof)\.?\s+/gi, "")
+    .trim()
+    .split(/\s+/);
+
+  return parts
+    .slice(0, 3)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+}
+
+const mentorGroupDefinitions: Array<Omit<MentorGroup, "people"> & { kinds: MentorKind[] }> = [
+  {
+    id: "school",
+    eyebrow: "Where it began",
+    title: "School",
+    description: "The teachers who shaped my earliest habits of learning and curiosity.",
+    kinds: ["school-teacher"],
+  },
+  {
+    id: "engineering-faculty",
+    eyebrow: "2015 — 2019",
+    title: "Engineering faculty",
+    description: "Professors who taught me to think carefully, ask why, and understand things properly.",
+    kinds: ["engineering-professor"],
+  },
+  {
+    id: "engineering-administration",
+    eyebrow: "IIIT Manipur",
+    title: "Engineering administration",
+    description: "People whose patience and support made the college journey easier.",
+    kinds: ["engineering-admin"],
+  },
+  {
+    id: "mba",
+    eyebrow: "2025 — 2027",
+    title: "MBA faculty",
+    description: "Faculty making a demanding new chapter lively, warm, and worth remembering.",
+    kinds: ["mba-faculty"],
+  },
+  {
+    id: "sigmoid",
+    eyebrow: "2019 — 2021",
+    title: "Sigmoid",
+    description: "Seniors who helped a fresher learn widely and find his footing in production engineering.",
+    kinds: ["sigmoid-senior"],
+  },
+  {
+    id: "flipkart",
+    eyebrow: "2021 — 2023",
+    title: "Flipkart",
+    description: "Mentorship that showed me how trust, freedom, and support can work together.",
+    kinds: ["flipkart-senior"],
+  },
+  {
+    id: "quillbot",
+    eyebrow: "2023 — present",
+    title: "QuillBot",
+    description: "People who made building at a new scale—and the time around it—especially memorable.",
+    kinds: ["quillbot-senior"],
+  },
+];
+
+export const mentorGroups: MentorGroup[] = mentorGroupDefinitions.map(({ kinds, ...group }) => ({
+  ...group,
+  people: mentorDrafts
+    .filter((draft) => kinds.includes(draft.kind))
+    .map((draft) => people.find((person) => person.slug === draft.slug)!),
+}));
 
 validatePeople(people, siteConfig.journey);
 
