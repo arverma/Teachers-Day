@@ -359,25 +359,23 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .constellation__intro > p { max-width: 24rem; margin: 0; color: var(--muted); font-size: 0.8rem; line-height: 1.55; text-align: right; }
 .network {
   position: relative;
-  display: grid;
+  display: block;
   min-height: 0;
   margin: 0.75rem 0;
-  padding: 1rem 0;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  align-items: center;
+  padding: 0;
   border-block: 1px solid var(--line);
 }
-.cluster { position: relative; z-index: 1; display: grid; width: 100%; height: 100%; padding: 1rem; grid-template-rows: auto minmax(0, 1fr); animation: cluster-drift 11s ease-in-out infinite alternate; }
-.cluster:nth-child(2n) { animation-name: cluster-drift-reverse; animation-duration: 13s; animation-delay: -4s; }
-.cluster:nth-child(3n) { animation-duration: 15s; animation-delay: -8s; }
-.cluster__threads { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.cluster { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.cluster__threads { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .cluster__thread { stroke: color-mix(in srgb, var(--accent) 35%, var(--line)); stroke-width: 1; opacity: 0.5; transition: opacity 180ms ease, stroke 180ms ease, stroke-width 180ms ease; }
 .cluster__thread.is-active,
 .cluster:has(h2:hover) .cluster__thread { stroke: var(--accent); stroke-width: 1.5; opacity: 1; }
 .cluster h2 {
+  position: absolute;
+  z-index: 2;
   display: flex;
-  margin: 0 0 0.8rem;
+  width: max-content;
+  margin: 0;
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
@@ -386,11 +384,13 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   letter-spacing: 0.08em;
   text-align: center;
   text-transform: uppercase;
+  pointer-events: auto;
 }
 .cluster__hub { width: 0.42rem; height: 0.42rem; flex: 0 0 auto; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0.22rem var(--paper); }
-.cluster__nodes { display: flex; min-height: 3.5rem; justify-content: center; flex-wrap: wrap; gap: clamp(0.22rem, 0.65vw, 0.6rem); }
-.has-js .cluster__nodes { position: relative; display: block; }
+.cluster__nodes { position: static; }
 .mentor-node {
+  position: absolute;
+  z-index: 2;
   display: grid;
   width: clamp(2rem, 3.2vw, 3rem);
   aspect-ratio: 1;
@@ -404,20 +404,13 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   text-decoration: none;
   animation: mentor-twinkle 5.5s ease-in-out infinite alternate;
   transition: background 160ms ease, color 160ms ease, scale 160ms ease;
+  pointer-events: auto;
 }
-.has-js .mentor-node { position: absolute; top: 50%; left: 50%; }
 .mentor-node:nth-child(3n + 2) { animation-name: mentor-twinkle-reverse; animation-duration: 7s; animation-delay: -2.5s; }
 .mentor-node:nth-child(4n + 3) { animation-duration: 8.5s; animation-delay: -5s; }
 .mentor-node:nth-child(5n) { animation-duration: 6.25s; animation-delay: -3.5s; }
 .mentor-node:hover { background: var(--accent); color: var(--paper); scale: 1.12; }
 .mentor-node:focus-visible { background: var(--accent); color: var(--paper); outline: 2px solid var(--ink); outline-offset: 3px; }
-.cluster--school { grid-area: 1 / 1; }
-.cluster--engineering-faculty { grid-area: 1 / 2 / 2 / 4; }
-.cluster--engineering-administration { grid-area: 1 / 4; }
-.cluster--sigmoid { grid-area: 2 / 1; }
-.cluster--flipkart { grid-area: 2 / 2; }
-.cluster--mba { grid-area: 2 / 3; }
-.cluster--quillbot { grid-area: 2 / 4; }
 .constellation__footer { display: flex; justify-content: space-between; color: var(--muted); font: 0.58rem/1.2 "SFMono-Regular", Consolas, monospace; letter-spacing: 0.06em; text-transform: uppercase; }
 .constellation__footer i { display: inline-block; width: 0.45rem; height: 0.45rem; margin-right: 0.35rem; border: 1px solid var(--accent); border-radius: 50%; }
 
@@ -427,18 +420,9 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   .constellation__intro .eyebrow { margin-bottom: 0.25rem; font-size: 0.55rem; }
   .constellation__intro h1 { font-size: clamp(2.15rem, 12vw, 3.75rem); }
   .constellation__intro > p { max-width: 21rem; margin-top: 0.45rem; font-size: 0.66rem; line-height: 1.4; text-align: left; }
-  .network { margin: 0.5rem 0; padding: 0.5rem 0; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(4, minmax(0, 1fr)); }
-  .cluster { padding: 0.5rem; }
-  .cluster h2 { margin-bottom: 0.3rem; font-size: 0.48rem; }
-  .cluster__nodes { gap: 0.18rem; }
+  .network { margin: 0.5rem 0; padding: 0; }
+  .cluster h2 { font-size: 0.48rem; }
   .mentor-node { width: clamp(1.65rem, 7.5vw, 2.15rem); font-size: 0.48rem; }
-  .cluster--school { grid-area: 1 / 1; }
-  .cluster--engineering-faculty { grid-area: 1 / 2 / 3 / 3; }
-  .cluster--engineering-administration { grid-area: 2 / 1; }
-  .cluster--sigmoid { grid-area: 3 / 1; }
-  .cluster--flipkart { grid-area: 3 / 2; }
-  .cluster--mba { grid-area: 4 / 1; }
-  .cluster--quillbot { grid-area: 4 / 2; }
   .constellation__footer { font-size: 0.48rem; }
 }
 
@@ -522,4 +506,105 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   .then-now__arrow::before { top: 50%; right: 0.5rem; bottom: auto; left: 0; width: auto; height: 1px; }
   .then-now__arrow::after { right: 0.5rem; bottom: calc(50% - 0.2rem); left: auto; transform: rotate(-45deg); }
   .easter-egg__window { max-width: 46rem; margin-left: auto; }
+}
+
+/* Home-page scene transition: one fixed viewport, two visual states. */
+.constellation {
+  position: relative;
+  display: block;
+  width: min(100% - 2.5rem, 90rem);
+  height: 100svh;
+  padding: 0;
+}
+
+.constellation__intro {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: min(100%, 56rem);
+  transform: translate(-50%, -50%);
+  transition: top 760ms cubic-bezier(0.22, 1, 0.36, 1), transform 760ms cubic-bezier(0.22, 1, 0.36, 1), width 760ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.constellation__intro .eyebrow { margin: 0 0 2rem; }
+.constellation__intro h1 {
+  max-width: none;
+  margin: 0;
+  font-size: clamp(4rem, 10vw, 8.5rem);
+  line-height: 0.86;
+  transition: font-size 760ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.constellation__subtitle {
+  max-width: 31rem !important;
+  margin: 2.75rem 0 0 !important;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.6vw, 1.2rem) !important;
+  line-height: 1.65 !important;
+  text-align: left !important;
+  transition: margin 760ms cubic-bezier(0.22, 1, 0.36, 1), font-size 760ms cubic-bezier(0.22, 1, 0.36, 1), opacity 360ms ease;
+}
+.constellation__author {
+  margin: 5rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  transition: opacity 220ms ease, transform 420ms ease;
+}
+.constellation .network {
+  position: absolute;
+  inset: 8rem 0 2.25rem;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(2rem) scale(0.94);
+  transition: opacity 520ms 180ms ease, transform 760ms 100ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.constellation__footer {
+  position: absolute;
+  right: 0;
+  bottom: 0.7rem;
+  left: 0;
+  opacity: 0;
+  transition: opacity 360ms 300ms ease;
+}
+
+.constellation.is-exploring .constellation__intro {
+  top: 1rem;
+  width: 100%;
+  transform: translate(-50%, 0);
+}
+.constellation.is-exploring .constellation__intro > div { display: inline-block; }
+.constellation.is-exploring .constellation__intro .eyebrow { margin-bottom: 0.35rem; }
+.constellation.is-exploring .constellation__intro h1 { font-size: clamp(2.25rem, 5vw, 4.75rem); }
+.constellation.is-exploring .constellation__subtitle {
+  position: absolute;
+  top: 50%;
+  right: 5rem;
+  margin: 0 !important;
+  font-size: 0.8rem !important;
+  text-align: right !important;
+  transform: translateY(-50%);
+}
+.constellation.is-exploring .constellation__author { position: absolute; opacity: 0; transform: translateY(-1rem); pointer-events: none; }
+.constellation.is-exploring .network { opacity: 1; pointer-events: auto; transform: none; }
+.constellation.is-exploring .constellation__footer { opacity: 1; }
+
+@media (max-width: 60rem), (max-aspect-ratio: 4 / 5) {
+  .constellation { width: min(100% - 1.25rem, 32rem); }
+  .constellation__intro { width: min(100%, 28rem); }
+  .constellation__intro .eyebrow { margin-bottom: 1.25rem; font-size: 0.58rem; }
+  .constellation__intro h1 { font-size: clamp(3.4rem, 17vw, 5.5rem); }
+  .constellation__subtitle { max-width: 22rem !important; margin-top: 1.5rem !important; font-size: 0.9rem !important; }
+  .constellation__author { margin-top: 3.5rem; font-size: 0.78rem; }
+  .constellation.is-exploring .constellation__intro { top: 0.75rem; width: 100%; }
+  .constellation.is-exploring .constellation__intro h1 { font-size: clamp(2.15rem, 12vw, 3.75rem); }
+  .constellation.is-exploring .constellation__subtitle {
+    position: static;
+    max-width: calc(100% - 4rem) !important;
+    margin-top: 0.35rem !important;
+    font-size: 0.62rem !important;
+    text-align: left !important;
+    transform: none;
+  }
+  .constellation .network { inset: 7.25rem 0 1.75rem; }
 }

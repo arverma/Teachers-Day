@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getInitials, mentorGroups, people } from "../data/people";
+import { getInitials, mentorGroups } from "../data/people";
 import { siteConfig } from "../data/site";
 ---
 
@@ -8,10 +8,11 @@ import { siteConfig } from "../data/site";
   <main class="constellation">
     <header class="constellation__intro">
       <div>
-        <p class="eyebrow">{people.length} PEOPLE · ONE JOURNEY</p>
+        <p class="eyebrow">A COLLECTION OF THANK-YOUS</p>
         <h1>{siteConfig.title}</h1>
       </div>
-      <p>{siteConfig.subtitle} Choose a circle to read their note.</p>
+      <p class="constellation__subtitle">{siteConfig.subtitle}</p>
+      <p class="constellation__author">Made by {siteConfig.author.name}</p>
     </header>
 
     <section class="network" aria-label="A network of teachers and mentors grouped across my journey">
@@ -44,29 +45,55 @@ import { siteConfig } from "../data/site";
   </main>
 
   <script>
-    import { generateScatterPositions } from "../lib/scatter";
+    import { generateCollisionFreeLayout } from "../lib/scatter";
 
     const scatter = () => {
-      document.querySelectorAll<HTMLElement>(".cluster__nodes").forEach((container) => {
-        const nodes = [...container.querySelectorAll<HTMLElement>(".mentor-node")];
-        const firstNode = nodes[0];
-        if (!firstNode) return;
+      const canvas = document.querySelector<HTMLElement>(".network");
+      if (!canvas) return;
 
-        const bounds = container.getBoundingClientRect();
-        const itemSize = firstNode.getBoundingClientRect().width;
-        const positions = generateScatterPositions({
-          count: nodes.length,
+      const labels = [...canvas.querySelectorAll<HTMLElement>(".cluster h2")];
+      const nodes = [...canvas.querySelectorAll<HTMLElement>(".mentor-node")];
+      const elements = [...labels, ...nodes];
+      const bounds = canvas.getBoundingClientRect();
+      const items = elements.map((element) => {
+        const rect = element.getBoundingClientRect();
+        return { width: rect.width, height: rect.height };
+      });
+
+      try {
+        const positions = generateCollisionFreeLayout({
+          items,
           width: bounds.width,
           height: bounds.height,
-          itemSize,
+          gap: bounds.width < 520 ? 7 : 11,
         });
 
-        nodes.forEach((node, index) => {
-          node.style.left = `${positions[index].x}px`;
-          node.style.top = `${positions[index].y}px`;
+        elements.forEach((element, index) => {
+          element.style.left = `${positions[index].x}px`;
+          element.style.top = `${positions[index].y}px`;
+        });
+        nodes.forEach((node) => {
           node.style.animationDelay = `${(-Math.random() * 8).toFixed(2)}s`;
         });
-      });
+      } catch {
+        // Keep the previous valid layout if an unusually small viewport is too dense.
+      }
+    };
+
+    const page = document.querySelector<HTMLElement>(".constellation");
+    const network = document.querySelector<HTMLElement>(".network");
+    const footer = document.querySelector<HTMLElement>(".constellation__footer");
+    let exploring = false;
+    let touchStartY = 0;
+
+    const setExploring = (next: boolean) => {
+      if (!page || exploring === next) return;
+      exploring = next;
+      page.classList.toggle("is-exploring", next);
+      network?.setAttribute("aria-hidden", String(!next));
+      footer?.setAttribute("aria-hidden", String(!next));
+      if (network) network.inert = !next;
+      if (next) queueScatter();
     };
 
     const drawThreads = () => {
@@ -115,5 +142,30 @@ import { siteConfig } from "../data/site";
     queueScatter();
     requestAnimationFrame(drawThreads);
     window.addEventListener("resize", queueScatter, { passive: true });
+    network?.setAttribute("aria-hidden", "true");
+    footer?.setAttribute("aria-hidden", "true");
+    if (network) network.inert = true;
+    window.addEventListener("wheel", (event) => {
+      if (Math.abs(event.deltaY) < 8) return;
+      event.preventDefault();
+      setExploring(event.deltaY > 0);
+    }, { passive: false });
+    window.addEventListener("touchstart", (event) => {
+      touchStartY = event.touches[0]?.clientY ?? 0;
+    }, { passive: true });
+    window.addEventListener("touchend", (event) => {
+      const endY = event.changedTouches[0]?.clientY ?? touchStartY;
+      if (Math.abs(endY - touchStartY) > 28) setExploring(endY < touchStartY);
+    }, { passive: true });
+    window.addEventListener("keydown", (event) => {
+      if (["ArrowDown", "PageDown", " "].includes(event.key)) {
+        event.preventDefault();
+        setExploring(true);
+      }
+      if (["ArrowUp", "PageUp", "Home", "Escape"].includes(event.key)) {
+        event.preventDefault();
+        setExploring(false);
+      }
+    });
   </script>
 </BaseLayout>

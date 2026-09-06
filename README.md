@@ -103,7 +103,8 @@ public/               Images, favicon, and hosting headers
 ## Design behavior
 
 - single-screen, initials-only mentor network on the landing page
-- independent clusters with subtle, reduced-motion-aware star-like movement
+- scroll-gesture transition from a minimal dedication to the constellation
+- a globally randomized, collision-free constellation with reduced-motion-aware star-like movement
 - one statically generated thank-you page per recipient
 - system light/dark theme with a persisted override
 - motion disabled when `prefers-reduced-motion` is enabled

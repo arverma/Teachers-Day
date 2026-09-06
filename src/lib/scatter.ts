@@ -3,6 +3,72 @@ export interface ScatterPosition {
   y: number;
 }
 
+export interface LayoutItem {
+  width: number;
+  height: number;
+}
+
+interface CollisionFreeLayoutOptions {
+  items: LayoutItem[];
+  width: number;
+  height: number;
+  gap?: number;
+  random?: () => number;
+}
+
+const rectanglesOverlap = (
+  a: ScatterPosition & LayoutItem,
+  b: ScatterPosition & LayoutItem,
+  gap: number,
+) => !(
+  a.x + a.width + gap <= b.x ||
+  b.x + b.width + gap <= a.x ||
+  a.y + a.height + gap <= b.y ||
+  b.y + b.height + gap <= a.y
+);
+
+export function generateCollisionFreeLayout({
+  items,
+  width,
+  height,
+  gap = 8,
+  random = Math.random,
+}: CollisionFreeLayoutOptions): ScatterPosition[] {
+  for (let restart = 0; restart < 80; restart += 1) {
+    const placed: Array<ScatterPosition & LayoutItem> = [];
+    let failed = false;
+
+    for (const item of items) {
+      const maxX = Math.max(0, width - item.width);
+      const maxY = Math.max(0, height - item.height);
+      let candidate: (ScatterPosition & LayoutItem) | undefined;
+
+      for (let attempt = 0; attempt < 1400; attempt += 1) {
+        const next = {
+          x: random() * maxX,
+          y: random() * maxY,
+          width: item.width,
+          height: item.height,
+        };
+        if (!placed.some((existing) => rectanglesOverlap(next, existing, gap))) {
+          candidate = next;
+          break;
+        }
+      }
+
+      if (!candidate) {
+        failed = true;
+        break;
+      }
+      placed.push(candidate);
+    }
+
+    if (!failed) return placed.map(({ x, y }) => ({ x, y }));
+  }
+
+  throw new Error("The constellation is too dense for collision-free placement.");
+}
+
 interface ScatterOptions {
   count: number;
   width: number;
