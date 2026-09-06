@@ -1,25 +1,62 @@
 # Still With Me
 
-A quiet, configuration-driven collection of thank-yous for teachers and mentors whose lessons stayed. Every recipient gets a real static page at `/thankyou/<slug>/`; the root page never exposes a recipient directory.
+A configuration-driven thank-you site for the teachers and mentors whose lessons stayed with you. It includes an initials-only mentor constellation and a dedicated static page for every recipient at `/thankyou/<slug>/`.
 
-Built with Astro and TypeScript for fast, server-free hosting on Cloudflare Pages at `mentor.arverma.dev`.
+Built with Astro and TypeScript. The result is a fast, server-free static site that can be deployed to Cloudflare Pages, Netlify, Vercel, GitHub Pages, or any static host.
 
-## Local development
+## Make it yours
 
-Requires Node.js 22.12 or newer and pnpm.
+### 1. Fork and run the project
+
+Fork this repository on GitHub, clone your fork, then install Node.js 22.12 or newer and pnpm.
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Open the local URL printed by Astro, then visit a sample route such as:
+Open the local URL printed by Astro.
 
-```text
-http://localhost:4321/thankyou/meera-maam/
+### 2. Add your recipients
+
+Open `src/data/people.ts` and edit the `QUICK EDIT AREA`. Each entry needs:
+
+- a unique lowercase, hyphenated `slug`
+- the recipient's display `name`
+- the closest available `kind`
+- an optional personal `note` array
+
+```ts
+{
+  slug: "your-mentor",
+  name: "Your Mentor",
+  kind: "engineering-professor",
+  note: [
+    "A personal memory you share.",
+    "What their guidance still means to you.",
+  ],
+}
 ```
 
-## Production checks
+The `kind` supplies a reusable journey, relationship label, introductory copy, Then → Now section, and default note. Available kinds are:
+
+- `school-teacher`
+- `engineering-professor`
+- `engineering-admin`
+- `mba-faculty`
+- `sigmoid-senior`
+- `flipkart-senior`
+- `quillbot-senior`
+
+Edit or replace the presets below the quick-edit area to match your own schools, workplaces, memories, and voice. The landing-page group titles and descriptions live in `mentorGroupDefinitions` in the same file.
+
+### 3. Personalize the site
+
+Open `src/data/site.ts` to change the site title, subtitle, author, occasion, domain, metadata, journey stages, and shared closing message. Replace the profile image in `public/images/` and update its path and alt text in the same configuration file.
+
+Search the repository for the original domain and project name before deploying so canonical links and metadata point to your site.
+
+### 4. Check your version
 
 ```bash
 pnpm test
@@ -28,110 +65,48 @@ pnpm build
 pnpm preview
 ```
 
-The static site is written to `dist/`. No server, database, API, analytics, or runtime rendering is required.
+The production site is generated in `dist/`. Check the landing page, every recipient link, and an unknown route before publishing.
 
-## Adding a person
+## Deploy
 
-1. Open `src/data/people.ts`.
-2. Find the `QUICK EDIT AREA` at the top of the file.
-3. Copy one mentor entry and choose the closest `kind`.
-4. Give it a unique lowercase, hyphenated `slug` and enter the person's `name`.
-5. Optionally add a `note` array when you want to replace the prefilled note.
-6. Run `pnpm build:cloudflare`.
-7. Commit and push. Cloudflare deploys `main` to production and other branches as previews.
-
-For example:
-
-```ts
-{
-  slug: "person-name",
-  name: "Person Name",
-  kind: "engineering-professor",
-  note: ["One personal memory.", "A short thank-you."],
-}
-```
-
-Available kinds are `school-teacher`, `engineering-professor`, `engineering-admin`, `mba-faculty`, `sigmoid-senior`, `flipkart-senior`, and `quillbot-senior`. Use `engineering-admin` for people connected to your engineering journey who were not professors. Add multiple entries with the same company kind when several seniors mentored you there. Each kind supplies CV-based journey chapters, institutions, dates, introductory copy, Then → Now, and a default note. The shared journey, occasion, author, footer, privacy defaults, and universal copy live in `src/data/site.ts`.
-
-The quick-edit area includes your current recipients and placeholders, including:
-
-- a school teacher (`khalid-kareem-khan`)
-- an engineering professor (`dr-nagesh-ch`)
-- two engineering administrators (`mr-chingangbam-collin-singh` and `salam-monorama-devi`)
-- an MBA faculty member (`dr-kavya-sen`)
-- Ishan Ojha from Sigmoid (`ishaan-ojha`)
-- Karthik Nandam from Sigmoid (`karthik-nandam`)
-- Pradyot H. Adavi from Flipkart (`pradyot-h-adavi`)
-- Muhammad Rafi from QuillBot (`muhammad-rafi`)
-- Jayant Kumar from QuillBot (`jayant-kumar`)
-- Aditya Malik from QuillBot (`aditya-malik`)
-
-Dr. Nagesh Ch reflects an existing user edit. The remaining names are placeholders and must be replaced before their URLs are shared. Never add contact details or content you would not be comfortable placing on a technically public URL.
-
-Advanced preset copy and optional sections remain in the same file below the quick-edit area. The data validator rejects duplicate or invalid slugs, unknown journey stages, missing core note content, and enabled easter eggs with no lines.
-
-## Deploying to Cloudflare Pages
-
-This repository is prepared for Cloudflare Pages Git integration. It intentionally has no deployment token, Cloudflare adapter, Worker, or GitHub deployment workflow: the generated `dist/` directory is a complete static site.
-
-### 1. Connect the repository
-
-1. Push this repository to GitHub.
-2. In Cloudflare, open **Workers & Pages → Create application → Pages → Import an existing Git repository**.
-3. Authorize GitHub and select this repository.
-4. Use these build settings:
+Use these settings with any static hosting provider that supports Astro:
 
 | Setting | Value |
 |---|---|
-| Project name | `still-with-me` (or another available name) |
-| Production branch | `main` |
-| Framework preset | `Astro` |
+| Framework preset | Astro |
 | Build command | `pnpm build:cloudflare` |
-| Build output directory | `dist` |
-| Root directory | Repository root (leave blank) |
+| Output directory | `dist` |
+| Root directory | Repository root |
+| Node.js | 22.12 or newer |
+| pnpm | 11.19.0 |
 
-The repository pins Node.js in `.node-version`. Under **Settings → Environment variables**, add `PNPM_VERSION` with the value `11.19.0` for both production and preview builds so Cloudflare uses the same package-manager version as local development.
+For Cloudflare Pages, import the fork from **Workers & Pages → Create application → Pages → Import an existing Git repository**, enter the settings above, and connect your custom domain after the first deployment succeeds.
 
-After **Save and Deploy**, Cloudflare creates a temporary `*.pages.dev` address. Every push to `main` becomes a production deployment; other branches and pull requests receive isolated preview deployments.
+## Privacy
 
-### 2. Connect `mentor.arverma.dev`
+Recipient pages use `noindex, nofollow` by default. This discourages search indexing, but it does not make a URL private or access-controlled. Only publish notes and personal details you are comfortable placing on a technically public page.
 
-1. Open the new Pages project.
-2. Choose **Custom domains → Set up a domain**.
-3. Enter `mentor.arverma.dev` and continue.
-
-If `arverma.dev` already uses Cloudflare DNS, Cloudflare can create the DNS record automatically. Otherwise, first associate the domain in the Pages dashboard and then create a CNAME at the current DNS provider pointing `mentor` to the generated `<project>.pages.dev` hostname. Do not create the CNAME before associating the custom domain in Pages.
-
-The production origin is already configured in `astro.config.mjs` and `src/data/site.ts`, so canonical and Open Graph URLs resolve to `https://mentor.arverma.dev`.
-
-### 3. Verify and roll back
-
-After the first deployment, check `/`, every configured `/thankyou/<slug>/` route, and an unknown route. Cloudflare Pages recognizes the generated top-level `404.html` automatically.
-
-If a release is wrong, open the project's **Deployments** list, select the last known-good production deployment, and choose **Rollback**. Cloudflare keeps previous deployments available for this purpose.
-
-## Privacy and metadata
-
-Personalized routes include `noindex, nofollow` by default. This discourages search indexing but does not make a page private or access-controlled. Set `siteConfig.privacy.noIndex` to `false` only if indexing is intentional.
-
-Shared metadata includes the recipient's display name and a generic description; it never includes the personal note body. There is no analytics or tracking code.
+There is no analytics, tracking, database, API, or runtime server.
 
 ## Project structure
 
 ```text
 src/
-├── components/       Narrative sections and timeline
-├── data/             Global settings, recipients, types, validation
+├── components/       Narrative sections shared by recipient pages
+├── data/             Site settings, recipients, presets, and validation
 ├── layouts/          Metadata, theme, and shared document shell
-├── pages/            Root, static recipient routes, and 404
-└── styles/           Editorial responsive visual system
-public/               Favicon and Cloudflare response headers
+├── pages/            Landing page, recipient routes, and 404 page
+└── styles/           Responsive editorial visual system
+public/               Images, favicon, and hosting headers
 ```
 
 ## Design behavior
 
-- mobile-first vertical journey; horizontal journey on wider screens
-- system light/dark theme with a small persisted override
-- viewport reveals that fully disable under `prefers-reduced-motion`
-- no external fonts, images, client framework, or motion library
+- single-screen, initials-only mentor network on the landing page
+- scroll-gesture transition from a minimal dedication to the constellation
+- a globally randomized, collision-free constellation with reduced-motion-aware star-like movement
+- one statically generated thank-you page per recipient
+- system light/dark theme with a persisted override
+- motion disabled when `prefers-reduced-motion` is enabled
 - semantic headings, visible focus states, and comfortable touch targets
+- no external fonts, client framework, or animation library

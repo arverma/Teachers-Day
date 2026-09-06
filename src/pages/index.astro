@@ -1,13 +1,171 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getInitials, mentorGroups } from "../data/people";
 import { siteConfig } from "../data/site";
 ---
 
 <BaseLayout pageClass="home-page">
-  <main class="home">
-    <p class="eyebrow">A COLLECTION OF THANK-YOUS</p>
-    <h1>{siteConfig.title}</h1>
-    <p>{siteConfig.subtitle}</p>
-    <small>Made by {siteConfig.author.name}</small>
+  <main class="constellation">
+    <header class="constellation__intro">
+      <div>
+        <p class="eyebrow">A COLLECTION OF THANK-YOUS</p>
+        <h1>{siteConfig.title}</h1>
+      </div>
+      <p class="constellation__subtitle">{siteConfig.subtitle}</p>
+      <p class="constellation__author">Made by {siteConfig.author.name}</p>
+    </header>
+
+    <section class="network" aria-label="A network of teachers and mentors grouped across my journey">
+      {mentorGroups.map((group) => (
+        <section class={`cluster cluster--${group.id}`} aria-labelledby={`${group.id}-title`}>
+          <svg class="cluster__threads" aria-hidden="true">
+            {group.people.map((_, index) => <line class="cluster__thread" data-thread={index} />)}
+          </svg>
+          <h2 id={`${group.id}-title`}><span class="cluster__hub" aria-hidden="true"></span><span>{group.title}</span></h2>
+          <div class="cluster__nodes">
+            {group.people.map((person, index) => (
+              <a
+                class="mentor-node"
+                href={`/thankyou/${person.slug}/`}
+                aria-label={`Open the thank-you note for ${person.displayName}`}
+                data-node={index}
+              >
+                <span aria-hidden="true">{getInitials(person.displayName)}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </section>
+
+    <footer class="constellation__footer">
+      <span><i aria-hidden="true"></i> A circle holds a thank you</span>
+      <span>Made by {siteConfig.author.name}</span>
+    </footer>
   </main>
+
+  <script>
+    import { generateCollisionFreeLayout } from "../lib/scatter";
+
+    const scatter = () => {
+      const canvas = document.querySelector<HTMLElement>(".network");
+      if (!canvas) return;
+
+      const labels = [...canvas.querySelectorAll<HTMLElement>(".cluster h2")];
+      const nodes = [...canvas.querySelectorAll<HTMLElement>(".mentor-node")];
+      const elements = [...labels, ...nodes];
+      const bounds = canvas.getBoundingClientRect();
+      const items = elements.map((element) => {
+        const rect = element.getBoundingClientRect();
+        return { width: rect.width, height: rect.height };
+      });
+
+      try {
+        const positions = generateCollisionFreeLayout({
+          items,
+          width: bounds.width,
+          height: bounds.height,
+          gap: bounds.width < 520 ? 7 : 11,
+        });
+
+        elements.forEach((element, index) => {
+          element.style.left = `${positions[index].x}px`;
+          element.style.top = `${positions[index].y}px`;
+        });
+        nodes.forEach((node) => {
+          node.style.animationDelay = `${(-Math.random() * 8).toFixed(2)}s`;
+        });
+      } catch {
+        // Keep the previous valid layout if an unusually small viewport is too dense.
+      }
+    };
+
+    const page = document.querySelector<HTMLElement>(".constellation");
+    const network = document.querySelector<HTMLElement>(".network");
+    const footer = document.querySelector<HTMLElement>(".constellation__footer");
+    let exploring = false;
+    let touchStartY = 0;
+
+    const setExploring = (next: boolean) => {
+      if (!page || exploring === next) return;
+      exploring = next;
+      page.classList.toggle("is-exploring", next);
+      network?.setAttribute("aria-hidden", String(!next));
+      footer?.setAttribute("aria-hidden", String(!next));
+      if (network) network.inert = !next;
+      if (next) queueScatter();
+    };
+
+    const drawThreads = () => {
+      document.querySelectorAll<HTMLElement>(".cluster").forEach((cluster) => {
+        const clusterBounds = cluster.getBoundingClientRect();
+        const hub = cluster.querySelector<HTMLElement>(".cluster__hub");
+        if (!hub) return;
+
+        const hubBounds = hub.getBoundingClientRect();
+        const startX = hubBounds.left + hubBounds.width / 2 - clusterBounds.left;
+        const startY = hubBounds.top + hubBounds.height / 2 - clusterBounds.top;
+
+        cluster.querySelectorAll<SVGLineElement>(".cluster__thread").forEach((line) => {
+          const node = cluster.querySelector<HTMLElement>(`[data-node="${line.dataset.thread}"]`);
+          if (!node) return;
+          const nodeBounds = node.getBoundingClientRect();
+
+          line.setAttribute("x1", String(startX));
+          line.setAttribute("y1", String(startY));
+          line.setAttribute("x2", String(nodeBounds.left + nodeBounds.width / 2 - clusterBounds.left));
+          line.setAttribute("y2", String(nodeBounds.top + nodeBounds.height / 2 - clusterBounds.top));
+        });
+      });
+
+      requestAnimationFrame(drawThreads);
+    };
+
+    document.querySelectorAll<HTMLElement>(".mentor-node").forEach((node) => {
+      const cluster = node.closest(".cluster");
+      const line = cluster?.querySelector<SVGLineElement>(`[data-thread="${node.dataset.node}"]`);
+      const activate = () => line?.classList.add("is-active");
+      const deactivate = () => line?.classList.remove("is-active");
+
+      node.addEventListener("pointerenter", activate);
+      node.addEventListener("pointerleave", deactivate);
+      node.addEventListener("focus", activate);
+      node.addEventListener("blur", deactivate);
+    });
+
+    let resizeFrame = 0;
+    const queueScatter = () => {
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(scatter);
+    };
+
+    queueScatter();
+    requestAnimationFrame(drawThreads);
+    window.addEventListener("resize", queueScatter, { passive: true });
+    network?.setAttribute("aria-hidden", "true");
+    footer?.setAttribute("aria-hidden", "true");
+    if (network) network.inert = true;
+    window.addEventListener("wheel", (event) => {
+      if (Math.abs(event.deltaY) < 8) return;
+      event.preventDefault();
+      setExploring(event.deltaY > 0);
+    }, { passive: false });
+    window.addEventListener("touchstart", (event) => {
+      touchStartY = event.touches[0]?.clientY ?? 0;
+    }, { passive: true });
+    window.addEventListener("touchend", (event) => {
+      const endY = event.changedTouches[0]?.clientY ?? touchStartY;
+      if (Math.abs(endY - touchStartY) > 28) setExploring(endY < touchStartY);
+    }, { passive: true });
+    window.addEventListener("keydown", (event) => {
+      if (["ArrowDown", "PageDown", " "].includes(event.key)) {
+        event.preventDefault();
+        setExploring(true);
+      }
+      if (["ArrowUp", "PageUp", "Home", "Escape"].includes(event.key)) {
+        event.preventDefault();
+        setExploring(false);
+      }
+    });
+  </script>
 </BaseLayout>
