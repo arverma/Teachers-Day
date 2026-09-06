@@ -12,7 +12,6 @@ import { siteConfig } from "../data/site";
         <h1>{siteConfig.title}</h1>
       </div>
       <p class="constellation__subtitle">{siteConfig.subtitle}</p>
-      <p class="constellation__author">Made by {siteConfig.author.name}</p>
     </header>
 
     <section class="network" aria-label="A network of teachers and mentors grouped across my journey">
@@ -40,12 +39,12 @@ import { siteConfig } from "../data/site";
 
     <footer class="constellation__footer">
       <span><i aria-hidden="true"></i> A circle holds a thank you</span>
-      <span>Made by {siteConfig.author.name}</span>
     </footer>
   </main>
 
   <script>
     import { generateCollisionFreeLayout } from "../lib/scatter";
+    import { pickNextLineIndex } from "../lib/signal";
 
     const scatter = () => {
       const canvas = document.querySelector<HTMLElement>(".network");
@@ -85,6 +84,23 @@ import { siteConfig } from "../data/site";
     const footer = document.querySelector<HTMLElement>(".constellation__footer");
     let exploring = false;
     let touchStartY = 0;
+    let signalIndex = -1;
+    let signalTimer = 0;
+
+    const lightRandomThread = () => {
+      const lines = [...document.querySelectorAll<SVGLineElement>(".cluster__thread")];
+      lines[signalIndex]?.classList.remove("is-signal");
+      signalIndex = pickNextLineIndex(lines.length, signalIndex);
+      lines[signalIndex]?.classList.add("is-signal");
+    };
+
+    const startSignal = () => {
+      window.clearInterval(signalTimer);
+      lightRandomThread();
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        signalTimer = window.setInterval(lightRandomThread, 3200);
+      }
+    };
 
     const setExploring = (next: boolean) => {
       if (!page || exploring === next) return;
@@ -93,7 +109,10 @@ import { siteConfig } from "../data/site";
       network?.setAttribute("aria-hidden", String(!next));
       footer?.setAttribute("aria-hidden", String(!next));
       if (network) network.inert = !next;
-      if (next) queueScatter();
+      if (next) {
+        queueScatter();
+        startSignal();
+      }
     };
 
     const drawThreads = () => {
@@ -140,6 +159,7 @@ import { siteConfig } from "../data/site";
     };
 
     queueScatter();
+    lightRandomThread();
     requestAnimationFrame(drawThreads);
     window.addEventListener("resize", queueScatter, { passive: true });
     network?.setAttribute("aria-hidden", "true");

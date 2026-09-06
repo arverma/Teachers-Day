@@ -369,7 +369,9 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .cluster__threads { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .cluster__thread { stroke: color-mix(in srgb, var(--accent) 35%, var(--line)); stroke-width: 1; opacity: 0.5; transition: opacity 180ms ease, stroke 180ms ease, stroke-width 180ms ease; }
 .cluster__thread.is-active,
+.cluster__thread.is-signal,
 .cluster:has(h2:hover) .cluster__thread { stroke: var(--accent); stroke-width: 1.5; opacity: 1; }
+.cluster__thread.is-signal { filter: drop-shadow(0 0 0.2rem color-mix(in srgb, var(--accent) 65%, transparent)); }
 .cluster h2 {
   position: absolute;
   z-index: 2;
@@ -544,12 +546,6 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   text-align: left !important;
   transition: margin 760ms cubic-bezier(0.22, 1, 0.36, 1), font-size 760ms cubic-bezier(0.22, 1, 0.36, 1), opacity 360ms ease;
 }
-.constellation__author {
-  margin: 5rem 0 0;
-  color: var(--muted);
-  font-size: 0.9rem;
-  transition: opacity 220ms ease, transform 420ms ease;
-}
 .constellation .network {
   position: absolute;
   inset: 8rem 0 2.25rem;
@@ -585,7 +581,6 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   text-align: right !important;
   transform: translateY(-50%);
 }
-.constellation.is-exploring .constellation__author { position: absolute; opacity: 0; transform: translateY(-1rem); pointer-events: none; }
 .constellation.is-exploring .network { opacity: 1; pointer-events: auto; transform: none; }
 .constellation.is-exploring .constellation__footer { opacity: 1; }
 
@@ -595,7 +590,6 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   .constellation__intro .eyebrow { margin-bottom: 1.25rem; font-size: 0.58rem; }
   .constellation__intro h1 { font-size: clamp(3.4rem, 17vw, 5.5rem); }
   .constellation__subtitle { max-width: 22rem !important; margin-top: 1.5rem !important; font-size: 0.9rem !important; }
-  .constellation__author { margin-top: 3.5rem; font-size: 0.78rem; }
   .constellation.is-exploring .constellation__intro { top: 0.75rem; width: 100%; }
   .constellation.is-exploring .constellation__intro h1 { font-size: clamp(2.15rem, 12vw, 3.75rem); }
   .constellation.is-exploring .constellation__subtitle {
